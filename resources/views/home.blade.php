@@ -212,11 +212,6 @@
         <div class="logo-text">
             คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏนครปฐม
         </div>
-        <nav class="navbar">
-            <a href="{{ url('/admission') }}">หน้าหลัก</a>
-            <a href="{{ url('/application') }}">สมัครเรียน</a>
-            <a href="{{ url('/admin/login') }}" class="register-btn">เข้าสู่ระบบ</a>
-        </nav>
     </header>
 
     <div class="major-grid">

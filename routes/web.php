@@ -150,3 +150,8 @@ Route::get('/clear-application', function () {
     session()->forget('has_applied');
     return redirect()->route('admission');
 })->name('clear.application');
+
+// Add home route
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
