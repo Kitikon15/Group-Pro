@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เข้าสู่ระบบ Admin - คณะวิทยาศาสตร์และเทคโนโลยี</title>
+    <title>เข้าสู่ระบบ Admin - มหาวิทยาลัยราชภัฏนครปฐม</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,7 +15,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f8f5f5 0%, #f0e6e6 100%);
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0cc 100%);
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -28,13 +28,13 @@
         .login-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
             width: 100%;
             max-width: 450px;
             padding: 40px;
             text-align: center;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -46,7 +46,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, #8B0000, #A9A9A9);
+            background: linear-gradient(90deg, #FFD700, #FF4500);
         }
 
         .logo {
@@ -58,11 +58,11 @@
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #8B0000;
+            border: 3px solid #FF4500;
             padding: 5px;
             background: white;
             margin: 0 auto;
-            box-shadow: 0 4px 8px rgba(139, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(255, 69, 0, 0.2);
             transition: transform 0.3s ease;
         }
 
@@ -71,16 +71,17 @@
         }
 
         h1 {
-            color: #8B0000;
+            color: #000;
             margin-bottom: 10px;
             font-size: 28px;
             font-weight: 700;
         }
 
         .subtitle {
-            color: #7f8c8d;
+            color: #5a5a5a;
             margin-bottom: 30px;
             font-size: 16px;
+            font-weight: 500;
         }
 
         .form-group {
@@ -98,39 +99,40 @@
         input {
             width: 100%;
             padding: 15px;
-            border: 2px solid #d0c0c0;
+            border: 2px solid #ffd7a0;
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s;
-            background: #fafafa;
+            background: #fff9e6;
+            font-weight: 500;
         }
 
         input:focus {
-            border-color: #8B0000;
+            border-color: #FF4500;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.2);
+            box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.2);
             background: #fff;
         }
 
         .btn-login {
-            background: linear-gradient(135deg, #8B0000, #A0522D);
-            color: white;
+            background: linear-gradient(135deg, #FFD700, #FF4500);
+            color: #000;
             border: none;
             padding: 15px;
             width: 100%;
             border-radius: 8px;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 69, 0, 0.3);
         }
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(139, 0, 0, 0.4);
-            background: linear-gradient(135deg, #A0522D, #8B0000);
+            box-shadow: 0 6px 15px rgba(255, 69, 0, 0.4);
+            background: linear-gradient(135deg, #FF4500, #FFD700);
         }
 
         .btn-login:active {
@@ -140,36 +142,38 @@
         .back-link {
             display: block;
             margin-top: 20px;
-            color: #8B0000;
+            color: #FF4500;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: color 0.3s;
         }
 
         .back-link:hover {
-            color: #A0522D;
+            color: #FF8C00;
             text-decoration: underline;
         }
 
         .footer {
             margin-top: 30px;
-            color: #7f8c8d;
+            color: #5a5a5a;
             font-size: 14px;
+            font-weight: 600;
         }
 
         .error-message {
-            background: #f8d7da;
-            color: #721c24;
+            background: #ffe6e6;
+            color: #cc0000;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
+            border: 1px solid #ffcccc;
             text-align: left;
+            font-weight: 500;
         }
 
         .credentials-info {
-            background: linear-gradient(135deg, #f0e0e0, #e0d0d0);
-            border-left: 4px solid #8B0000;
+            background: linear-gradient(135deg, #fff0cc, #ffe6b3);
+            border-left: 4px solid #FF4500;
             padding: 15px;
             border-radius: 0 8px 8px 0;
             margin: 20px 0;
@@ -178,20 +182,22 @@
         }
 
         .credentials-info h3 {
-            color: #8B0000;
+            color: #000;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-weight: 700;
         }
 
         .credentials-info p {
             margin: 5px 0;
             color: #5a5a5a;
+            font-weight: 500;
         }
 
         .credentials-info .highlight {
-            background: #8B0000;
+            background: #FF4500;
             color: white;
             padding: 2px 6px;
             border-radius: 4px;
@@ -213,10 +219,10 @@
 <body>
     <div class="login-container">
         <div class="logo">
-            <img src="https://sc.npru.ac.th/sc_major/assets/images/app/logo.jpg" alt="คณะวิทยาศาสตร์และเทคโนโลยี">
+            <img src="https://sc.npru.ac.th/sc_major/assets/images/app/logo.jpg" alt="มหาวิทยาลัยราชภัฏนครปฐม">
         </div>
         <h1>เข้าสู่ระบบ Admin</h1>
-        <p class="subtitle">คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏนครปฐม</p>
+        <p class="subtitle">มหาวิทยาลัยราชภัฏนครปฐม</p>
         
         @if ($errors->any())
             <div class="error-message">
@@ -239,10 +245,10 @@
             <button type="submit" class="btn-login">เข้าสู่ระบบ</button>
         </form>
         
-        <a href="{{ url('/admission') }}" class="back-link">← กลับไปหน้าหลัก</a>
+        <a href="{{ url('/admission') }}" class="back-link">← กลับไปหน้าสมัครเรียน</a>
         
         <div class="footer">
-            <p>© 2025 คณะวิทยาศาสตร์และเทคโนโลยี NPRU</p>
+            <p>© 2025 มหาวิทยาลัยราชภัฏนครปฐม</p>
         </div>
     </div>
 </body>

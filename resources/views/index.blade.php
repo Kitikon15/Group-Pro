@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>วิศวกรรมซอฟต์แวร์ - SCI NPRU</title>
+    <title>ข่าวประชาสัมพันธ์ - มหาวิทยาลัยราชภัฏนครปฐม</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -16,7 +16,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f8f5f5 0%, #f0e6e6 100%);
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0cc 100%);
             color: #333;
             line-height: 1.6;
         }
@@ -26,9 +26,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            background: linear-gradient(135deg, #8B0000, #A9A9A9);
-            color: white;
-            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+            background: linear-gradient(135deg, #FFD700, #FF4500);
+            color: #000;
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -46,16 +46,17 @@
             width: 40px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid white;
+            border: 2px solid #fff;
             padding: 2px;
-            background: white;
+            background: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .title {
             font-size: 1.3em;
-            font-weight: 600;
+            font-weight: 700;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            color: #000;
         }
 
         .right-section {
@@ -77,180 +78,49 @@
             padding: 5px 8px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            color: white;
-            background: rgba(255, 255, 255, 0.2);
+            color: #000;
+            background: rgba(255, 255, 255, 0.5);
+            font-weight: 700;
         }
 
         .font-size-controls span:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.7);
             transform: scale(1.1);
         }
 
         .lang-flag {
             font-size: 1.2em;
             padding: 8px 12px;
-            background: linear-gradient(135deg, #8B0000, #A0522D);
-            color: white;
+            background: linear-gradient(135deg, #FFD700, #FF4500);
+            color: #000;
             border-radius: 6px;
             font-weight: bold;
-            box-shadow: 0 2px 5px rgba(139, 0, 0, 0.3);
+            box-shadow: 0 2px 5px rgba(255, 69, 0, 0.3);
         }
 
         .apply-btn {
-            background: linear-gradient(135deg, #8B0000, #A0522D);
-            color: white;
+            background: linear-gradient(135deg, #FFD700, #FF4500);
+            color: #000;
             padding: 12px 24px;
             border: none;
             border-radius: 25px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 69, 0, 0.3);
+            text-decoration: none;
+            display: inline-block;
         }
 
         .apply-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(139, 0, 0, 0.4);
-        }
-
-        .banner-container {
-            text-align: center;
-            padding: 30px 20px;
-        }
-
-        .banner {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: block;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-            border: 2px solid #d0c0c0;
-        }
-
-        .banner:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.3);
+            box-shadow: 0 6px 15px rgba(255, 69, 0, 0.4);
         }
 
         .content-wrapper {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-
-        .content-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .box {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(139, 0, 0, 0.15);
-            padding: 30px;
-            transition: all 0.3s ease;
-            border: 1px solid #e8d8d8;
-        }
-
-        .box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.25);
-        }
-
-        .box h2 {
-            margin: 0 0 20px 0;
-            font-weight: 700;
-            font-size: 1.5em;
-            color: #8B0000;
-            border-bottom: 3px solid #d0c0c0;
-            padding-bottom: 10px;
-        }
-
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95em;
-        }
-
-        .info-table td {
-            padding: 12px 8px;
-            vertical-align: top;
-            border-bottom: 1px solid #e0d0d0;
-        }
-
-        .info-table td:first-child {
-            width: 140px;
-            font-weight: 600;
-            color: #5a5a5a;
-        }
-
-        .info-table td:last-child {
-            color: #5a5a5a;
-        }
-
-        .download-btn {
-            margin-top: 25px;
-            display: inline-block;
-            background: linear-gradient(135deg, #8B0000, #A0522D);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 0, 0, 0.6);
-        }
-
-        .career-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .career-list li {
-            padding: 8px 0;
-            position: relative;
-            padding-left: 25px;
-            color: #555;
-        }
-
-        .career-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #27ae60;
-            font-weight: bold;
-        }
-
-        .slider {
-            width: 100%;
-            max-width: 1200px;
-            margin: 40px auto;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .slides {
-            display: flex;
-            transition: transform 1s ease;
-        }
-
-        .slide {
-            min-width: 100%;
-        }
-
-        .slide img {
-            width: 100%;
-            display: block;
         }
 
         .section {
@@ -261,11 +131,12 @@
         }
 
         .section h2 {
-            font-size: 2em;
+            font-size: 2.5em;
             margin-bottom: 40px;
-            color: #2c3e50;
+            color: #000;
             position: relative;
             display: inline-block;
+            font-weight: 700;
         }
 
         .section h2:after {
@@ -274,152 +145,139 @@
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(135deg, #FFD700, #FF4500);
             border-radius: 2px;
         }
 
-        .section-alumni {
-            max-width: 800px;
-            margin: 60px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .section h2 {
-            font-size: 2em;
-            margin-bottom: 40px;
-            color: #2c3e50;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section h2:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 2px;
-        }
-
-        .teacher-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .teacher-card {
+        .news-section {
             background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
             border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(255, 69, 0, 0.15);
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid #ffd7a0;
+            margin-bottom: 40px;
+        }
+
+        .news-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 69, 0, 0.25);
+        }
+
+        .news-item {
+            margin-bottom: 30px;
             padding: 25px;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .teacher-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .teacher-card img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 4px solid #3498db;
-            transition: all 0.3s ease;
-        }
-
-        .teacher-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .teacher-card p {
-            font-size: 0.9em;
-            color: #555;
-            line-height: 1.5;
-        }
-
-        .lab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-
-        .lab-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
             border-radius: 15px;
-            overflow: hidden;
+            background: #fff9e6;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #FF4500;
+            border: 1px solid #ffd7a0;
         }
 
-        .lab-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        .news-item:hover {
+            background: #fff0cc;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.2);
         }
 
-        .lab-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .lab-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .lab-card-content {
-            padding: 20px;
-        }
-
-        .lab-card h3 {
-            font-size: 1em;
-            margin: 0;
-            color: #2c3e50;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .font-size-controls {
+        .news-item h3 {
+            color: #000;
+            font-size: 1.5em;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9em;
-            color: #666;
+            gap: 10px;
+            font-weight: 700;
         }
 
-        .video-container {
-            position: relative;
-            width: 100%;
-            max-width: 1500px;
-            /* ✅ กำหนดให้ไม่กว้างเกินไป */
-            aspect-ratio: 16 / 9;
-            /* ✅ แนวนอนมาตรฐาน */
-            margin: 40px auto;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        .news-item h3 i {
+            color: #FF4500;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .news-banner-placeholder {
             width: 100%;
-            height: 100%;
-            border: none;
+            height: 250px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.1);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #000;
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+            border: 3px solid #ffd7a0;
+        }
+
+        .news-banner-1 {
+            background-image: url('https://news.npru.ac.th/userfiles/ACADEMIC/%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%2069/ban%2069%20%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%201.png');
+        }
+
+        .news-banner-2 {
+            background-image: url('https://news.npru.ac.th/userfiles/ACADEMIC/%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%2069/ban%2069%20%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%20%282%29.png');
+        }
+
+        .news-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ffd7a0;
+        }
+
+        .news-author {
+            font-size: 1em;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .news-date {
+            font-size: 1em;
+            color: #FF4500;
+            font-weight: 700;
+        }
+
+        .read-more {
+            background: linear-gradient(135deg, #FFD700, #FF4500);
+            color: #000;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 69, 0, 0.3);
+            display: inline-block;
+        }
+
+        .read-more:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 69, 0, 0.4);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #FFD700, #FF4500);
+            color: #000;
+            padding: 30px;
+            margin-top: 60px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        footer a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 700;
         }
 
         @media (max-width: 768px) {
@@ -434,55 +292,8 @@
                 justify-content: center;
             }
 
-            .content-row {
-                grid-template-columns: 1fr;
-            }
-
-            .teacher-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 20px;
-            }
-
-            .lab-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
-
             .section h2 {
-                font-size: 1.5em;
-            }
-
-            .video-container iframe {
-                height: 250px;
-            }
-        }
-
-        @media (max-width: 280px) {
-            .teacher-grid {
-                grid-template-columns: 60px 60px;
-            }
-
-            .lab-grid {
-                grid-template-columns: 60px 60px;
-            }
-        }
-
-        footer a:hover {
-            transform: scale(1.05);
-        }
-
-        footer nav a:hover {
-            color: #007bff !important;
-        }
-
-        @media (max-width: 768px) {
-            footer>div:nth-child(2) {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-            }
-
-            footer>div:nth-child(3) {
-                flex-direction: column !important;
-                text-align: center !important;
+                font-size: 2em;
             }
         }
 
@@ -497,348 +308,189 @@
             background: white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-
-        .students-img {
-            width: 100%;
-            max-width: 450px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 5px solid white;
-            object-fit: cover;
-            height: 500px;
-        }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <div class="logo">
-            <img src="https://sc.npru.ac.th/sc_major/assets/images/app/logo.jpg" alt="SCI NPRU">
-            <div class="logo-text">คณะวิทยาศาสตร์และเทคโนโลยี</div>
+        <div class="logo-title">
+            <div class="logo">
+                <img src="https://sc.npru.ac.th/sc_major/assets/images/app/logo.jpg" alt="SCI NPRU">
+            </div>
+            <div class="title">มหาวิทยาลัยราชภัฏนครปฐม</div>
         </div>
-        <div class="nav-right">
-            <div class="language-switch">
-                <div class="font-size-controls">
+        <div class="right-section">
+            <div class="font-size-controls">
                 ขนาดอักษร: <span onclick="adjustFontSize('small')">ก</span>
                 <span onclick="adjustFontSize('medium')">ก</span>
                 <span onclick="adjustFontSize('large')">ก</span>
-                <img src="https://sc.npru.ac.th/sc_major/assets/images/langs/tha.png" alt="Thai Flag" style="height: 18px;">
-                    <a href="@if(auth()->check()) {{ route('admin.dashboard') }} @else {{ url('/admission') }} @endif"
-                        style="background-color: #4285f4; color: white; padding: 12px 30px; border-radius: 6px; font-size: 16px; text-decoration: none; display: inline-block; transition: background-color 0.3s ease;">
-                        สมัครเรียน
-                    </a>
-                </div>
             </div>
+            <div class="lang-flag">
+                <img src="https://sc.npru.ac.th/sc_major/assets/images/langs/tha.png" alt="Thai Flag" style="height: 18px;">
+            </div>
+            <a href="{{ route('application') }}" class="apply-btn">
+                <i class="fas fa-user-plus"></i> สมัครเรียน
+            </a>
         </div>
-    </div>
-
-    <div class="banner-container">
-        <a href="https://pgm.npru.ac.th/se" target="_blank" rel="noopener noreferrer">
-            <img src="https://sc.npru.ac.th/sc_major/assets/images/major_cover/1693382011_2c0ee9d91d20a0202d5f.jpg" alt="วิศวกรรมซอฟต์แวร์" class="banner" />
-        </a>
     </div>
 
     <div class="content-wrapper">
-        <div class="content-row">
-            <div class="box">
-                <h2><i class="fas fa-info-circle"></i> ข้อมูลทั่วไป</h2>
-                <table class="info-table">
-                    <tr>
-                        <td>ชื่อปริญญา</td>
-                        <td>วิทยาศาสตรบัณฑิต (วิศวกรรมซอฟต์แวร์) วท.บ.</td>
-                    </tr>
-                    <tr>
-                        <td>ชื่อปริญญาอังกฤษ</td>
-                        <td>Bachelor of Science (Software Engineering) B.Sc.</td>
-                    </tr>
-                    <tr>
-                        <td>วิชาเอก</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>รูปแบบหลักสูตร</td>
-                        <td>ระดับปริญญาตรี หลักสูตร 4 ปี</td>
-                    </tr>
-                    <tr>
-                        <td>หน่วยกิต</td>
-                        <td>ไม่น้อยกว่า 128 หน่วยกิต</td>
-                    </tr>
-                    <tr>
-                        <td>ภาษาที่ใช้</td>
-                        <td>ไทย/Thai/泰(Tàiyǔ)</td>
-                    </tr>
-                    <tr>
-                        <td>ค่าเรียน</td>
-                        <td>11,400 บาท/เทอม</td>
-                    </tr>
-                    <tr>
-                        <td>เพิ่มเติม</td>
-                        <td>หลักสูตรปรับปรุง พ.ศ.2564</td>
-                    </tr>
-                </table>
-                <a href="#" class="download-btn">
-                    <i class="fas fa-download"></i> ดาวน์โหลดรายละเอียด
-                </a>
+        <!-- Show success message if exists -->
+        @if(session('success'))
+            <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
+                <div style="background: linear-gradient(135deg, #d4edda, #c3e6cb); border-left: 4px solid #28a745; padding: 20px; border-radius: 0 8px 8px 0; box-shadow: 0 4px 10px rgba(40, 167, 69, 0.15); color: #155724; font-weight: 600;">
+                    <h3 style="margin: 0 0 10px 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-check-circle"></i> สมัครเรียนสำเร็จ!
+                    </h3>
+                    <p style="margin: 0;">{{ session('success') }}</p>
+                </div>
             </div>
-
-            <div class="box">
-                <h2><i class="fas fa-briefcase"></i> อาชีพหลังสำเร็จการศึกษา</h2>
-                <ul class="career-list">
-                    <li>เจ้าหน้าที่ตรวจสอบคุณภาพซอฟต์แวร์</li>
-                    <li>โปรแกรมเมอร์</li>
-                    <li>วิศวกรซอฟต์แวร์</li>
-                    <li>นักทดสอบระบบ</li>
-                </ul>
+        @endif
+        
+        <div class="section">
+            <h2><i class="fas fa-newspaper"></i> ข่าวประชาสัมพันธ์</h2>
+            
+            <div class="news-section">
+                <div class="news-item">
+                    <h3><i class="fas fa-bullhorn"></i> รับสมัครนักศึกษาระดับปริญญาตรี ภาคปกติ ปีการศึกษา 2569 (รอบที่ 1)(ด่วนที่สุด)</h3>
+                    <div class="news-banner-placeholder news-banner-1">
+                    </div>
+                    <div class="news-details">
+                        <div class="news-author">ประกาศโดย: academic.npru</div>
+                        <div class="news-date">วันที่ประกาศ: 5 สิงหาคม 2568</div>
+                        <a href="#" class="read-more">อ่านเพิ่มเติม</a>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <h3><i class="fas fa-bullhorn"></i> รับสมัครนักศึกษาระดับปริญญาตรี ภาคกศ.พป. ปีการศึกษา 2569 (รอบที่ 1)</h3>
+                    <div class="news-banner-placeholder news-banner-2">
+                    </div>
+                    <div class="news-details">
+                        <div class="news-author">ประกาศโดย: academic.npru</div>
+                        <div class="news-date">วันที่ประกาศ: 5 สิงหาคม 2568</div>
+                        <a href="#" class="read-more">อ่านเพิ่มเติม</a>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <h3><i class="fas fa-bullhorn"></i> ประกาศรับสมัครนักศึกษาใหม่ ปีการศึกษา 2569 รอบที่ 2</h3>
+                    <div class="news-banner-placeholder" style="background-color: #ffd700; color: #000;">
+                        รับสมัครนักศึกษาใหม่ ปีการศึกษา 2569 รอบที่ 2
+                    </div>
+                    <div class="news-details">
+                        <div class="news-author">ประกาศโดย: งานรับเข้าศึกษา</div>
+                        <div class="news-date">วันที่ประกาศ: 15 สิงหาคม 2568</div>
+                        <a href="#" class="read-more">อ่านเพิ่มเติม</a>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="slider">
-            <div class="slides">
-                <div class="slide">
-                    <a href="https://pgm.npru.ac.th/se" target="_blank">
-                        <img src="https://sc.npru.ac.th/sc_major/assets/images/major_banner/1706695485_b727e1eb5ce5b9663f9d.jpg" alt="slide 1" />
+            
+            <!-- Faculty and Program Information Section -->
+            <div class="news-section" style="margin-top: 30px;">
+                <h2><i class="fas fa-university"></i> คณะและสาขาวิชาที่เปิดรับสมัคร</h2>
+                <p>มหาวิทยาลัยราชภัฏนครปฐมมีหลายคณะและสาขาวิชาให้เลือกเรียน ดังนี้:</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div class="news-item" style="margin-bottom: 0;">
+                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
+                            <i class="fas fa-graduation-cap"></i> คณะวิทยาศาสตร์และเทคโนโลยี
+                        </h3>
+                        <ul style="text-align: left; padding-left: 20px;">
+                            <li>สาขาวิชาวิศวกรรมซอฟต์แวร์</li>
+                            <li>สาขาวิชาวิทยาการคอมพิวเตอร์</li>
+                            <li>สาขาวิชาเทคโนโลยีสารสนเทศ</li>
+                            <li>สาขาวิชาวิทยาศาสตร์สิ่งแวดล้อม</li>
+                            <li>สาขาวิชาฟิสิกส์</li>
+                            <li>สาขาวิชาเคมี</li>
+                            <li>สาขาวิชาชีววิทยา</li>
+                            <li>สาขาวิชาคณิตศาสตร์</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="news-item" style="margin-bottom: 0;">
+                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
+                            <i class="fas fa-book"></i> คณะมนุษยศาสตร์และสังคมศาสตร์
+                        </h3>
+                        <ul style="text-align: left; padding-left: 20px;">
+                            <li>สาขาวิชาภาษาไทย</li>
+                            <li>สาขาวิชาภาษาอังกฤษ</li>
+                            <li>สาขาวิชาภาษาจีน</li>
+                            <li>สาขาวิชาประวัติศาสตร์</li>
+                            <li>สาขาวิชาภูมิศาสตร์</li>
+                            <li>สาขาวิชารัฐศาสตร์การปกครอง</li>
+                            <li>สาขาวิชาสังคมวิทยา</li>
+                            <li>สาขาวิชาจิตวิทยา</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="news-item" style="margin-bottom: 0;">
+                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
+                            <i class="fas fa-chalkboard-teacher"></i> คณะครุศาสตร์
+                        </h3>
+                        <ul style="text-align: left; padding-left: 20px;">
+                            <li>สาขาวิชาการสอนภาษาอังกฤษ</li>
+                            <li>สาขาวิชาการสอนคณิตศาสตร์</li>
+                            <li>สาขาวิชาการสอนวิทยาศาสตร์</li>
+                            <li>สาขาวิชาการสอนสังคมศึกษา</li>
+                            <li>สาขาวิชาการสอนภาษาไทย</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="news-item" style="margin-bottom: 0;">
+                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
+                            <i class="fas fa-business-time"></i> คณะวิทยาการจัดการ
+                        </h3>
+                        <ul style="text-align: left; padding-left: 20px;">
+                            <li>สาขาวิชาการจัดการ</li>
+                            <li>สาขาวิชาการตลาด</li>
+                            <li>สาขาวิชาบัญชี</li>
+                            <li>สาขาวิชาการเงิน</li>
+                            <li>สาขาวิชาคอมพิวเตอร์ธุรกิจ</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="news-item" style="margin-bottom: 0;">
+                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
+                            <i class="fas fa-palette"></i> คณะศิลปกรรมศาสตร์
+                        </h3>
+                        <ul style="text-align: left; padding-left: 20px;">
+                            <li>สาขาวิชาศิลปกรรม</li>
+                            <li>สาขาวิชาการออกแบบ</li>
+                            <li>สาขาวิชาดนตรี</li>
+                            <li>สาขาวิชาการแสดง</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="news-item" style="margin-bottom: 0;">
+                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
+                            <i class="fas fa-heartbeat"></i> คณะพยาบาลศาสตร์
+                        </h3>
+                        <ul style="text-align: left; padding-left: 20px;">
+                            <li>สาขาวิชาพยาบาลศาสตร์</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="{{ route('application') }}" class="apply-btn" style="text-decoration: none; display: inline-block; padding: 15px 30px;">
+                        <i class="fas fa-user-plus"></i> สมัครเรียนทันที
                     </a>
-                </div>
-                <div class="slide">
-                    <a href="https://pgm.npru.ac.th/se" target="_blank">
-                        <img src="https://sc.npru.ac.th/sc_major/assets/images/major_banner/1716485181_0bfa33ce1d136a430a0a.png" alt="slide 2" />
-                    </a>
-                </div>
-                <div class="slide">
-                    <a href="https://pgm.npru.ac.th/se" target="_blank">
-                        <img src="https://sc.npru.ac.th/sc_major/assets/images/major_banner/1706669700_7778ac4e41f62ef3b31c.jpg" alt="slide 3" />
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-chalkboard-teacher"></i> อาจารย์ประจำหลักสูตร</h2>
-            <div class="teacher-grid">
-                <div class="teacher-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/lecturer/1706694016_43d4f45dca2d4f9011a4.jpg" alt="ผศ.ดร.อุษณีย์ ภักดีศระกุลวงศ์" />
-                    <p><strong>ผศ.ดร.อุษณีย์ ภักดีศระกุลวงศ์</strong><br>ประธาน สาขาวิชา</p>
-                </div>
-                <div class="teacher-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/lecturer/1706693986_c5a3e8541b6f087048fa.jpg" alt="ผศ.ดร. วรเชษฐ์ อุทิassa" />
-                    <p><strong>ผศ.ดร. วรเชษฐ์ อุทิassa</strong><br>รองประธานสาขา (ประธานสาขา)</p>
-                </div>
-                <div class="teacher-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/lecturer/1706694064_e094c4d933ac0ed7cd03.jpg" alt="ผศ.สมเกียรติ ซ่อนเหลื่อม" />
-                    <p><strong>ผศ.สมเกียรติ ซ่อนเหลื่อม</strong><br>รองประธานฯ ฝ่ายนโยบายและแผน</p>
-                </div>
-                <div class="teacher-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/lecturer/1716485261_38d6e57b8d63fe377d25.jpg" alt="ผศ.นฤพล สุวรรณวิจิตร" />
-                    <p><strong>ผศ.นฤพล สุวรรณวิจิตร</strong><br>รองประธานฯ ฝ่ายประกันคุณภาพฯ</p>
-                </div>
-                <div class="teacher-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/lecturer/1706694139_d6a2ba899f7470f5fd45.png" alt="อาจารย์ ดร.สุพิลาภ์ จันทร์เรือง" />
-                    <p><strong>อาจารย์ ดร.สุพิลาภ์ จันทร์เรือง</strong><br>รองประธานฯ ฝ่ายกิจการนักศึกษา</p>
-                </div>
-            </div>
-
-            <h2><i class="fas fa-user-tie"></i> อาจารย์พิเศษและนักวิจัย</h2>
-            <div class="teacher-grid">
-                <div class="teacher-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/lecturer/1706697016_17296e0d4cca0c92558f.jpg" alt="อาจารย์สมหมาย กรังพานิช" />
-                    <p><strong>อาจารย์สมหมาย กรังพานิช</strong><br>กรรมการผู้จัดการ บริษัท ที เอ็น ที โซลูชั่น จำกัด</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-flask"></i> ห้องปฏิบัติการ</h2>
-            <div class="lab-grid">
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/laboratory/1706695830_4cfc50904539177efe52.jpg" alt="อาคารปฏิบัติการคอมพิวเตอร์ มหาวิทยาลัยราชภัฏนครปฐม" />
-                    <div class="lab-card-content">
-                        <h3>อาคารปฏิบัติการคอมพิวเตอร์ มหาวิทยาลัยราชภัฏนครปฐม</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/laboratory/1706696144_9c9da38b4de6b2f98859.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ C408" />
-                    <div class="lab-card-content">
-                        <h3>ห้องปฏิบัติการคอมพิวเตอร์ C408</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/laboratory/1706696156_5feb9ba120f4489dd75b.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ C409" />
-                    <div class="lab-card-content">
-                        <h3>ห้องปฏิบัติการคอมพิวเตอร์ C409</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/laboratory/1706696068_17458c1c1b0af86cf5b1.jpg" alt="อาคารปฏิบัติการคอมพิวเตอร์ มหาวิทยาลัยราชภัฏนครปฐม" />
-                    <div class="lab-card-content">
-                        <h3>อาคารปฏิบัติการคอมพิวเตอร์ มหาวิทยาลัยราชภัฏนครปฐม</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-video"></i> วิดีโอแนะนำสาขา</h2>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/jXyZb58_eMo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-star"></i> กิจกรรมเด่น</h2>
-            <div class="lab-grid">
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/activity/1717372516_c7f4c286dd3fea87e017.jpg" alt="พักผ่อนหย่อนใจ" />
-                    <div class="lab-card-content">
-                        <h3>พักผ่อนหย่อนใจ</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/activity/1717372783_1bebfdb263427d406bf4.jpg" alt="ทานไอติมคลายร้อน" />
-                    <div class="lab-card-content">
-                        <h3>ทานไอติมคลายร้อน</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/activity/1718085446_fe7aac7f8c0b2b2a7dcb.jpg" alt="ตรวจประกันคุณภาพการศึกษาภายใน ระดับหลักสูตร 2566" />
-                    <div class="lab-card-content">
-                        <h3>ตรวจประกันคุณภาพการศึกษาภายใน ระดับหลักสูตร 2566</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/activity/1718085289_aad2e4743b4d5a1323d8.jpg" alt="เตรียมความพร้อม 2567" />
-                    <div class="lab-card-content">
-                        <h3>เตรียมความพร้อม 2567</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-trophy"></i> ผลงานนักศึกษา</h2>
-            <div class="lab-grid">
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/working/1706703910_f7b7ef037305b57dec1a.png" alt="เอกชัย และศักดิ์กริน 2565" />
-                    <div class="lab-card-content">
-                        <h3>เอกชัย และศักดิ์กริน 2565</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/working/1706695980_b1a0de835162fffb433f.jpg" alt="งานประชุมวิชาการระดับชาติ ครั้งที่ 15 มหาวิยทาลัยราชภัฏนครปฐม" />
-                    <div class="lab-card-content">
-                        <h3>งานประชุมวิชาการระดับชาติ ครั้งที่ 15 มหาวิยทาลัยราชภัฏนครปฐม</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/working/1706703942_7bb521a333709de8a562.png" alt="นับเนยและกฤษณะ 2566" />
-                    <div class="lab-card-content">
-                        <h3>นับเนยและกฤษณะ 2566</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/working/1706703920_10cfa7f0e24d4277853b.png" alt="ดาวปี 2563" />
-                    <div class="lab-card-content">
-                        <h3>ดาวปี 2563</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-alumni">
-            <h2><i class="fas fa-users"></i> ศิษย์เก่า</h2>
-            <div class="lab-grid">
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/activity/1718085646_22810071087faddb8e90.png" alt="วิทยากรโครงการเสริมสร้างสมรรถนะนักเรียนที่มีศักยภาพปฏิบัติดีด้านวิศวกรรมซอฟต์แวร์ กิจกรรมที่ 4 อบรมขั้นที่ 1-4 การ" />
-                    <div class="lab-card-content">
-                        <h3>วิทยากรโครงการเสริมสร้างสมรรถนะนักเรียนที่มีศักยภาพปฏิบัติดี</h3>
-                    </div>
-                </div>
-                <div class="lab-card">
-                    <img src="https://sc.npru.ac.th/sc_major/assets/images/activity/1706696727_979a1db33b2534678fe5.jpg" alt="ศิษย์เก่าเข้าร่วมโครงการปฐมนิเทศ" />
-                    <div class="lab-card-content">
-                        <h3>ศิษย์เก่าเข้าร่วมโครงการปฐมนิเทศ</h3>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer style="background-color: #f8f9fa; border-top: 1px solid #e9ecef; margin-top: 60px;">
-        <div style="background-color: #e9ecef; padding: 30px 0; text-align: center;">
-            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                <a href="#" style="width: 60px; height: 60px; border-radius: 50%; background-color: #4267B2; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; font-size: 24px; transition: transform 0.3s ease;">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" style="width: 60px; height: 60px; border-radius: 50%; background-color: #FF0000; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; font-size: 24px; transition: transform 0.3s ease;">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <a href="#" style="width: 60px; height: 60px; border-radius: 50%; background-color: #333; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; font-size: 24px; transition: transform 0.3s ease;">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#" style="width: 60px; height: 60px; border-radius: 50%; background-color: #17a2b8; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; font-size: 24px; transition: transform 0.3s ease;">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-        </div>
-        <div style="max-width: 1400px; margin: 0 auto; padding: 40px 20px; display: grid; grid-template-columns: 250px 1fr; gap: 40px; align-items: start;">
-            <div>
-                <nav style="display: flex; flex-direction: column; gap: 12px;">
-                    <a href="{{ url('/home') }}" style="display: flex; align-items: center; color: #6c757d; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05); transition: color 0.3s ease;">
-                        <span style="color: #007bff; margin-right: 8px;">◆</span> หน้าหลัก
-                    </a>
-                    <a href="#" style="display: flex; align-items: center; color: #6c757d; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05); transition: color 0.3s ease;">
-                        <span style="color: #007bff; margin-right: 8px;">◆</span> เว็บไซต์คณะ
-                    </a>
-                    <a href="#" style="display: flex; align-items: center; color: #6c757d; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05); transition: color 0.3s ease;">
-                        <span style="color: #007bff; margin-right: 8px;">◆</span> เว็บไซต์มหาวิทยาลัย
-                    </a>
-                    <a href="@if(auth()->check()) {{ route('admin.dashboard') }} @else {{ route('admin.login') }} @endif" style="display: flex; align-items: center; color: #007bff; text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px 15px; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; border-radius: 5px; margin: 5px 0; background-color: rgba(0,123,255,0.05);">
-                        <span style="margin-right: 10px; font-size: 16px;">⚙️</span> ส่วนจัดการระบบ
-                    </a>
-                </nav>
-            </div>
-            <div style="text-align: center; padding: 60px 20px;">
-                <h2 style="font-size: 24px; color: #333; margin-bottom: 15px; font-weight: normal;">
-                    มุ่งสู่อนาคตของชุมชน...
-                </h2>
-                <p style="color: #6c757d; margin-bottom: 30px; font-size: 16px;">
-                    เลือกสาขาที่ชอบ สำนวยชีวิตใช่
-                </p>
-                <a href="@if(auth()->check()) {{ route('admin.dashboard') }} @else {{ url('/admission') }} @endif"
-                    style="background-color: #4285f4; color: white; padding: 12px 30px; border-radius: 6px; font-size: 16px; text-decoration: none; display: inline-block; transition: background-color 0.3s ease;">
-                    สมัครเรียน
-                </a>
-            </div>
-
-            <!-- Copyright Footer -->
-            <div style="background-color: white; padding: 20px; border-top: 1px solid #e9ecef; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                <div style="font-size: 12px; color: #6c757d;">
-                    © 2024 Faculty of Science and Technology ◆ Nakhon Pathom Rajabhat University<br>
-                    Powered by Shaoransoft Developer
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <a href="#" style="width: 24px; height: 24px; background-color: #4267B2; border-radius: 3px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 12px;">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" style="width: 24px; height: 24px; background-color: #333; border-radius: 3px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 12px;">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
+    <footer>
+        <p>© 2025 มหาวิทยาลัยราชภัฏนครปฐม คณะวิทยาศาสตร์และเทคโนโลยี</p>
+        <p>โทรศัพท์: 0-3423-3274 ต่อ 2111 | อีเมล: sci.npru@gmail.com</p>
+        <p><a href="{{ route('admin.login') }}">เข้าสู่ระบบ Admin</a> | <a href="{{ route('application') }}">สมัครเรียน</a></p>
     </footer>
 
     <script>
-        let currentIndex = 0;
-        const slides = document.querySelector('.slides');
-        const totalSlides = document.querySelectorAll('.slide').length;
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
-
         function adjustFontSize(size) {
             const body = document.body;
-            body.classList.remove('font-small', 'font-medium', 'font-large');
-
+            
             switch (size) {
                 case 'small':
                     body.style.fontSize = '14px';
@@ -851,9 +503,6 @@
                     break;
             }
         }
-
-        // Auto-slide functionality
-        setInterval(nextSlide, 4000);
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

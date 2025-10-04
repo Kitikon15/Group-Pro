@@ -396,6 +396,9 @@
                 <li><a href="{{ route('admin.courses.index') }}" class="{{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">หลักสูตร</a></li>
                 <li><a href="{{ route('admin.personnels.index') }}" class="{{ request()->routeIs('admin.personnels.*') ? 'active' : '' }}">บุคลากร</a></li>
                 <li><a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">ตั้งค่าระบบ</a></li>
+                <li><a href="{{ route('admin.admission.report') }}" class="{{ request()->routeIs('admin.admission.report') ? 'active' : '' }}">รายงานการรับสมัคร</a></li>
+                <li><a href="{{ route('admin.faculty.program.quotas') }}" class="{{ request()->routeIs('admin.faculty.program.quotas') ? 'active' : '' }}">สาขาและจำนวนที่รับสมัคร</a></li>
+                <li><a href="{{ route('admin.application.process') }}" class="{{ request()->routeIs('admin.application.process') ? 'active' : '' }}">ขั้นตอนการสมัคร</a></li>
             </ul>
         </div>
 

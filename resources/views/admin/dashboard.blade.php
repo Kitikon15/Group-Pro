@@ -388,6 +388,7 @@
                 <li><a href="{{ route('admin.news.index') }}">ข่าวสารและกิจกรรม</a></li>
                 <li><a href="{{ route('admin.courses.index') }}">หลักสูตร</a></li>
                 <li><a href="{{ route('admin.personnels.index') }}">บุคลากร</a></li>
+                <li><a href="{{ route('admin.admission.report') }}">รายงานการรับสมัคร</a></li>
             </ul>
         </div>
 

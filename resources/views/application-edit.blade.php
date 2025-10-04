@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สมัครเรียน - มหาวิทยาลัยราชภัฏนครปฐม</title>
+    <title>แก้ไขข้อมูลการสมัคร - มหาวิทยาลัยราชภัฏนครปฐม</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -270,8 +270,8 @@
 
     <div class="container">
         <div class="page-header">
-            <h1><i class="fas fa-user-plus"></i> แบบฟอร์มสมัครเรียน</h1>
-            <p>กรุณากรอกข้อมูลด้านล่างเพื่อสมัครเข้าเรียนในมหาวิทยาลัยราชภัฏนครปฐม</p>
+            <h1><i class="fas fa-user-edit"></i> แก้ไขข้อมูลการสมัคร</h1>
+            <p>กรุณาแก้ไขข้อมูลด้านล่างเพื่ออัปเดตข้อมูลการสมัครของคุณ</p>
         </div>
 
         <div class="info-box">
@@ -279,8 +279,9 @@
             <p>กรุณาตรวจสอบความถูกต้องของข้อมูลก่อนส่งแบบฟอร์ม ข้อมูลที่กรอกจะถูกใช้ในการพิจารณาการรับสมัคร</p>
         </div>
 
-        <form class="application-form" method="POST" action="{{ route('application.submit') }}">
+        <form class="application-form" method="POST" action="{{ route('application.update') }}">
             @csrf
+            @method('PUT')
             <div class="form-section">
                 <h2><i class="fas fa-user"></i> ข้อมูลส่วนตัว</h2>
                 
@@ -289,9 +290,9 @@
                         <label for="title">คำนำหน้าชื่อ</label>
                         <select id="title" name="title" required>
                             <option value="">เลือกคำนำหน้า</option>
-                            <option value="นาย">นาย</option>
-                            <option value="นางสาว">นางสาว</option>
-                            <option value="นาง">นาง</option>
+                            <option value="นาย" {{ (isset($applicationData['title']) && $applicationData['title'] == 'นาย') ? 'selected' : '' }}>นาย</option>
+                            <option value="นางสาว" {{ (isset($applicationData['title']) && $applicationData['title'] == 'นางสาว') ? 'selected' : '' }}>นางสาว</option>
+                            <option value="นาง" {{ (isset($applicationData['title']) && $applicationData['title'] == 'นาง') ? 'selected' : '' }}>นาง</option>
                         </select>
                     </div>
                     
@@ -299,8 +300,8 @@
                         <label for="gender">เพศ</label>
                         <select id="gender" name="gender" required>
                             <option value="">เลือกเพศ</option>
-                            <option value="ชาย">ชาย</option>
-                            <option value="หญิง">หญิง</option>
+                            <option value="ชาย" {{ (isset($applicationData['gender']) && $applicationData['gender'] == 'ชาย') ? 'selected' : '' }}>ชาย</option>
+                            <option value="หญิง" {{ (isset($applicationData['gender']) && $applicationData['gender'] == 'หญิง') ? 'selected' : '' }}>หญิง</option>
                         </select>
                     </div>
                 </div>
@@ -308,24 +309,24 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="first_name">ชื่อ</label>
-                        <input type="text" id="first_name" name="first_name" placeholder="กรุณากรอกชื่อ" required>
+                        <input type="text" id="first_name" name="first_name" placeholder="กรุณากรอกชื่อ" value="{{ $applicationData['first_name'] ?? '' }}" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="last_name">นามสกุล</label>
-                        <input type="text" id="last_name" name="last_name" placeholder="กรุณากรอกนามสกุล" required>
+                        <input type="text" id="last_name" name="last_name" placeholder="กรุณากรอกนามสกุล" value="{{ $applicationData['last_name'] ?? '' }}" required>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="id_card">เลขบัตรประชาชน</label>
-                        <input type="text" id="id_card" name="id_card" placeholder="กรุณากรอกเลขบัตรประชาชน 13 หลัก" required>
+                        <input type="text" id="id_card" name="id_card" placeholder="กรุณากรอกเลขบัตรประชาชน 13 หลัก" value="{{ $applicationData['id_card'] ?? '' }}" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="birth_date">วัน/เดือน/ปี เกิด</label>
-                        <input type="date" id="birth_date" name="birth_date" required>
+                        <input type="date" id="birth_date" name="birth_date" value="{{ $applicationData['birth_date'] ?? '' }}" required>
                     </div>
                 </div>
             </div>
@@ -335,18 +336,18 @@
                 
                 <div class="form-group">
                     <label for="address">ที่อยู่</label>
-                    <textarea id="address" name="address" rows="3" placeholder="กรุณากรอกที่อยู่ตามทะเบียนบ้าน" required></textarea>
+                    <textarea id="address" name="address" rows="3" placeholder="กรุณากรอกที่อยู่ตามทะเบียนบ้าน" required>{{ $applicationData['address'] ?? '' }}</textarea>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="province">จังหวัด</label>
-                        <input type="text" id="province" name="province" placeholder="กรุณากรอกจังหวัด" required>
+                        <input type="text" id="province" name="province" placeholder="กรุณากรอกจังหวัด" value="{{ $applicationData['province'] ?? '' }}" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="postal_code">รหัสไปรษณีย์</label>
-                        <input type="text" id="postal_code" name="postal_code" placeholder="กรุณากรอกรหัสไปรษณีย์" required>
+                        <input type="text" id="postal_code" name="postal_code" placeholder="กรุณากรอกรหัสไปรษณีย์" value="{{ $applicationData['postal_code'] ?? '' }}" required>
                     </div>
                 </div>
             </div>
@@ -357,12 +358,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="phone">เบอร์โทรศัพท์</label>
-                        <input type="tel" id="phone" name="phone" placeholder="กรุณากรอกเบอร์โทรศัพท์" required>
+                        <input type="tel" id="phone" name="phone" placeholder="กรุณากรอกเบอร์โทรศัพท์" value="{{ $applicationData['phone'] ?? '' }}" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="email">อีเมล</label>
-                        <input type="email" id="email" name="email" placeholder="กรุณากรอกอีเมล" required>
+                        <input type="email" id="email" name="email" placeholder="กรุณากรอกอีเมล" value="{{ $applicationData['email'] ?? '' }}" required>
                     </div>
                 </div>
             </div>
@@ -374,26 +375,26 @@
                     <label for="education_level">ระดับการศึกษา</label>
                     <select id="education_level" name="education_level" required>
                         <option value="">เลือกระดับการศึกษา</option>
-                        <option value="ม.6">มัธยมศึกษาตอนปลาย</option>
-                        <option value="ปวช.">ประกาศนียบัตรวิชาชีพ</option>
-                        <option value="ปวส.">ประกาศนียบัตรวิชาชีพชั้นสูง</option>
+                        <option value="ม.6" {{ (isset($applicationData['education_level']) && $applicationData['education_level'] == 'ม.6') ? 'selected' : '' }}>มัธยมศึกษาตอนปลาย</option>
+                        <option value="ปวช." {{ (isset($applicationData['education_level']) && $applicationData['education_level'] == 'ปวช.') ? 'selected' : '' }}>ประกาศนียบัตรวิชาชีพ</option>
+                        <option value="ปวส." {{ (isset($applicationData['education_level']) && $applicationData['education_level'] == 'ปวส.') ? 'selected' : '' }}>ประกาศนียบัตรวิชาชีพชั้นสูง</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
                     <label for="school_name">ชื่อสถานศึกษา</label>
-                    <input type="text" id="school_name" name="school_name" placeholder="กรุณากรอกชื่อสถานศึกษา" required>
+                    <input type="text" id="school_name" name="school_name" placeholder="กรุณากรอกชื่อสถานศึกษา" value="{{ $applicationData['school_name'] ?? '' }}" required>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="gpa">เกรดเฉลี่ยสะสม</label>
-                        <input type="number" id="gpa" name="gpa" step="0.01" min="0" max="4" placeholder="เช่น 3.50" required>
+                        <input type="number" id="gpa" name="gpa" step="0.01" min="0" max="4" placeholder="เช่น 3.50" value="{{ $applicationData['gpa'] ?? '' }}" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="graduation_year">ปีที่จบการศึกษา</label>
-                        <input type="number" id="graduation_year" name="graduation_year" min="2000" max="2030" placeholder="เช่น 2024" required>
+                        <input type="number" id="graduation_year" name="graduation_year" min="2000" max="2030" placeholder="เช่น 2024" value="{{ $applicationData['graduation_year'] ?? '' }}" required>
                     </div>
                 </div>
             </div>
@@ -406,12 +407,12 @@
                     <label for="faculty">คณะที่สนใจ</label>
                     <select id="faculty" name="faculty" required>
                         <option value="">เลือกคณะที่สนใจ</option>
-                        <option value="คณะวิทยาศาสตร์และเทคโนโลยี">คณะวิทยาศาสตร์และเทคโนโลยี</option>
-                        <option value="คณะมนุษยศาสตร์และสังคมศาสตร์">คณะมนุษยศาสตร์และสังคมศาสตร์</option>
-                        <option value="คณะครุศาสตร์">คณะครุศาสตร์</option>
-                        <option value="คณะวิทยาการจัดการ">คณะวิทยาการจัดการ</option>
-                        <option value="คณะศิลปกรรมศาสตร์">คณะศิลปกรรมศาสตร์</option>
-                        <option value="คณะพยาบาลศาสตร์">คณะพยาบาลศาสตร์</option>
+                        <option value="คณะวิทยาศาสตร์และเทคโนโลยี" {{ (isset($applicationData['faculty']) && $applicationData['faculty'] == 'คณะวิทยาศาสตร์และเทคโนโลยี') ? 'selected' : '' }}>คณะวิทยาศาสตร์และเทคโนโลยี</option>
+                        <option value="คณะมนุษยศาสตร์และสังคมศาสตร์" {{ (isset($applicationData['faculty']) && $applicationData['faculty'] == 'คณะมนุษยศาสตร์และสังคมศาสตร์') ? 'selected' : '' }}>คณะมนุษยศาสตร์และสังคมศาสตร์</option>
+                        <option value="คณะครุศาสตร์" {{ (isset($applicationData['faculty']) && $applicationData['faculty'] == 'คณะครุศาสตร์') ? 'selected' : '' }}>คณะครุศาสตร์</option>
+                        <option value="คณะวิทยาการจัดการ" {{ (isset($applicationData['faculty']) && $applicationData['faculty'] == 'คณะวิทยาการจัดการ') ? 'selected' : '' }}>คณะวิทยาการจัดการ</option>
+                        <option value="คณะศิลปกรรมศาสตร์" {{ (isset($applicationData['faculty']) && $applicationData['faculty'] == 'คณะศิลปกรรมศาสตร์') ? 'selected' : '' }}>คณะศิลปกรรมศาสตร์</option>
+                        <option value="คณะพยาบาลศาสตร์" {{ (isset($applicationData['faculty']) && $applicationData['faculty'] == 'คณะพยาบาลศาสตร์') ? 'selected' : '' }}>คณะพยาบาลศาสตร์</option>
                     </select>
                 </div>
                 
@@ -424,21 +425,9 @@
             </div>
             
             <button type="submit" class="btn-submit">
-                <i class="fas fa-paper-plane"></i> ส่งแบบฟอร์มสมัคร
+                <i class="fas fa-save"></i> บันทึกการเปลี่ยนแปลง
             </button>
         </form>
-        
-        <div class="requirements">
-            <h2><i class="fas fa-list"></i> เอกสารที่ต้องใช้ในการสมัคร</h2>
-            <ul>
-                <li>สำเนาบัตรประชาชน 1 ฉบับ</li>
-                <li>สำเนาทะเบียนบ้าน 1 ฉบับ</li>
-                <li>รูปถ่ายหน้าตรง ขนาด 1 นิ้ว 2 ใบ</li>
-                <li>ใบรับรองผลการศึกษา (ปพ.1 หรือ ปพ.7)</li>
-                <li>ใบแสดงผลการเรียน (ปพ.7)</li>
-                <li>สำเนาเกียรติบัตร (ถ้ามี)</li>
-            </ul>
-        </div>
     </div>
     
     <div class="footer">
@@ -515,6 +504,12 @@
                     const option = document.createElement('option');
                     option.value = program;
                     option.textContent = program;
+                    
+                    // Check if this should be selected
+                    if (typeof applicationData !== 'undefined' && applicationData.program === program) {
+                        option.selected = true;
+                    }
+                    
                     programSelect.appendChild(option);
                 });
             } else {
