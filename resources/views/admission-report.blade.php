@@ -381,15 +381,15 @@
             </div>
         </div>
         <div class="user-info">
-            <a href="{{ url('/admission') }}" class="logout-btn">
-                <i class="fas fa-arrow-left"></i> กลับไปหน้าสมัครเรียน
+            <a href="{{ route('home') }}" class="logout-btn">
+                <i class="fas fa-arrow-left"></i> กลับไปหน้าหลัก
             </a>
         </div>
     </div>
 
     <div class="container">
-        <a href="{{ url('/admission') }}" class="back-link">
-            <i class="fas fa-arrow-left"></i> กลับไปหน้าสมัครเรียน
+        <a href="{{ route('home') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> กลับไปหน้าหลัก
         </a>
         
         <div class="page-header">

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แผงควบคุม Admin - คณะวิทยาศาสตร์และเทคโนโลยี</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -95,6 +96,11 @@
             background: #5a5a5a;
             color: white;
             padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
         }
 
         .sidebar-menu {
@@ -106,7 +112,8 @@
         }
 
         .sidebar-menu a {
-            display: block;
+            display: flex;
+            align-items: center;
             color: #f0f0f0;
             text-decoration: none;
             padding: 15px 20px;
@@ -119,9 +126,54 @@
             border-left: 4px solid #8B0000;
         }
 
+        .sidebar.collapsed .sidebar-menu a span {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-menu a i {
+            margin-right: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .sidebar.collapsed .sidebar-menu a {
+            justify-content: center;
+            padding: 15px 10px;
+        }
+
+        .sidebar-toggle {
+            background: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
         .main-content {
             flex: 1;
             padding: 30px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb .separator {
+            color: #6c757d;
         }
 
         .page-title {
@@ -130,6 +182,9 @@
             color: #8B0000;
             padding-bottom: 15px;
             border-bottom: 2px solid #e0d0d0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .stats-container {
@@ -364,6 +419,25 @@
             .stats-container {
                 grid-template-columns: 1fr;
             }
+            
+            .sidebar.collapsed {
+                width: 100%;
+            }
+            
+            .sidebar.collapsed .sidebar-menu a span {
+                display: inline;
+            }
+            
+            .sidebar.collapsed .sidebar-menu a i {
+                margin-right: 10px;
+                width: auto;
+                text-align: left;
+            }
+            
+            .sidebar.collapsed .sidebar-menu a {
+                justify-content: flex-start;
+                padding: 15px 20px;
+            }
         }
     </style>
 </head>
@@ -389,16 +463,43 @@
     </div>
 
     <div class="container">
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
             <ul class="sidebar-menu">
-                <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">แดชบอร์ด</a></li>
-                <li><a href="{{ route('admin.news.index') }}" class="{{ request()->routeIs('admin.news.*') ? 'active' : '' }}">ข่าวสารและกิจกรรม</a></li>
-                <li><a href="{{ route('admin.courses.index') }}" class="{{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">หลักสูตร</a></li>
-                <li><a href="{{ route('admin.personnels.index') }}" class="{{ request()->routeIs('admin.personnels.*') ? 'active' : '' }}">บุคลากร</a></li>
-                <li><a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">ตั้งค่าระบบ</a></li>
-                <li><a href="{{ route('admin.admission.report') }}" class="{{ request()->routeIs('admin.admission.report') ? 'active' : '' }}">รายงานการรับสมัคร</a></li>
-                <li><a href="{{ route('admin.faculty.program.quotas') }}" class="{{ request()->routeIs('admin.faculty.program.quotas') ? 'active' : '' }}">สาขาและจำนวนที่รับสมัคร</a></li>
-                <li><a href="{{ route('admin.application.process') }}" class="{{ request()->routeIs('admin.application.process') ? 'active' : '' }}">ขั้นตอนการสมัคร</a></li>
+                <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>แดชบอร์ด</span>
+                </a></li>
+                <li><a href="{{ route('admin.news.index') }}" class="{{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
+                    <i class="fas fa-newspaper"></i>
+                    <span>ข่าวสารและกิจกรรม</span>
+                </a></li>
+                <li><a href="{{ route('admin.courses.index') }}" class="{{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>หลักสูตร</span>
+                </a></li>
+                <li><a href="{{ route('admin.personnels.index') }}" class="{{ request()->routeIs('admin.personnels.*') ? 'active' : '' }}">
+                    <i class="fas fa-users"></i>
+                    <span>บุคลากร</span>
+                </a></li>
+                <li><a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                    <i class="fas fa-cog"></i>
+                    <span>ตั้งค่าระบบ</span>
+                </a></li>
+                <li><a href="{{ route('admin.admission.report') }}" class="{{ request()->routeIs('admin.admission.report') ? 'active' : '' }}">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>รายงานการรับสมัคร</span>
+                </a></li>
+                <li><a href="{{ route('admin.faculty.program.quotas') }}" class="{{ request()->routeIs('admin.faculty.program.quotas') ? 'active' : '' }}">
+                    <i class="fas fa-university"></i>
+                    <span>สาขาและจำนวนที่รับสมัคร</span>
+                </a></li>
+                <li><a href="{{ route('admin.application.process') }}" class="{{ request()->routeIs('admin.application.process') ? 'active' : '' }}">
+                    <i class="fas fa-list-ol"></i>
+                    <span>ขั้นตอนการสมัคร</span>
+                </a></li>
             </ul>
         </div>
 
@@ -406,5 +507,12 @@
             @yield('content')
         </div>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+    </script>
 </body>
 </html>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แผงควบคุม Admin - คณะวิทยาศาสตร์และเทคโนโลยี</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -95,6 +96,11 @@
             background: #5a5a5a;
             color: white;
             padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
         }
 
         .sidebar-menu {
@@ -106,7 +112,8 @@
         }
 
         .sidebar-menu a {
-            display: block;
+            display: flex;
+            align-items: center;
             color: #f0f0f0;
             text-decoration: none;
             padding: 15px 20px;
@@ -119,9 +126,54 @@
             border-left: 4px solid #8B0000;
         }
 
+        .sidebar.collapsed .sidebar-menu a span {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-menu a i {
+            margin-right: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .sidebar.collapsed .sidebar-menu a {
+            justify-content: center;
+            padding: 15px 10px;
+        }
+
+        .sidebar-toggle {
+            background: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
         .main-content {
             flex: 1;
             padding: 30px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb .separator {
+            color: #6c757d;
         }
 
         .page-title {
@@ -130,6 +182,9 @@
             color: #8B0000;
             padding-bottom: 15px;
             border-bottom: 2px solid #e0d0d0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .stats-container {
@@ -357,6 +412,25 @@
             .stats-container {
                 grid-template-columns: 1fr;
             }
+            
+            .sidebar.collapsed {
+                width: 100%;
+            }
+            
+            .sidebar.collapsed .sidebar-menu a span {
+                display: inline;
+            }
+            
+            .sidebar.collapsed .sidebar-menu a i {
+                margin-right: 10px;
+                width: auto;
+                text-align: left;
+            }
+            
+            .sidebar.collapsed .sidebar-menu a {
+                justify-content: flex-start;
+                padding: 15px 20px;
+            }
         }
     </style>
 </head>
@@ -382,18 +456,49 @@
     </div>
 
     <div class="container">
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
             <ul class="sidebar-menu">
-                <li><a href="{{ route('admin.dashboard') }}" class="active">แดชบอร์ด</a></li>
-                <li><a href="{{ route('admin.news.index') }}">ข่าวสารและกิจกรรม</a></li>
-                <li><a href="{{ route('admin.courses.index') }}">หลักสูตร</a></li>
-                <li><a href="{{ route('admin.personnels.index') }}">บุคลากร</a></li>
-                <li><a href="{{ route('admin.admission.report') }}">รายงานการรับสมัคร</a></li>
+                <li><a href="{{ route('admin.dashboard') }}" class="active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>แดชบอร์ด</span>
+                </a></li>
+                <li><a href="{{ route('admin.news.index') }}">
+                    <i class="fas fa-newspaper"></i>
+                    <span>ข่าวสารและกิจกรรม</span>
+                </a></li>
+                <li><a href="{{ route('admin.courses.index') }}">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>หลักสูตร</span>
+                </a></li>
+                <li><a href="{{ route('admin.personnels.index') }}">
+                    <i class="fas fa-users"></i>
+                    <span>บุคลากร</span>
+                </a></li>
+                <li><a href="{{ route('admin.admission.report') }}">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>รายงานการรับสมัคร</span>
+                </a></li>
             </ul>
         </div>
 
         <div class="main-content">
-            <h1 class="page-title">แผงควบคุมระบบ</h1>
+            <div class="breadcrumb">
+                <a href="{{ route('admin.dashboard') }}">หน้าหลัก</a>
+                <span class="separator">/</span>
+                <span>แดชบอร์ด</span>
+            </div>
+            
+            <div class="page-title">
+                <span>แผงควบคุมระบบ</span>
+                <div>
+                    <button class="btn btn-secondary btn-sm">
+                        <i class="fas fa-sync-alt"></i> รีเฟรช
+                    </button>
+                </div>
+            </div>
 
             <div class="welcome-banner">
                 <h2>ยินดีต้อนรับเข้าสู่ระบบจัดการเว็บไซต์</h2>
@@ -475,5 +580,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+    </script>
 </body>
 </html>

@@ -399,6 +399,51 @@
             font-weight: 600;
         }
 
+        .steps {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.15);
+            padding: 30px;
+            border: 1px solid #ffd7a0;
+            margin-top: 30px;
+        }
+
+        .steps h3 {
+            color: #000;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ffd7a0;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #FFD700, #FF4500);
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
         @media (max-width: 992px) {
             .container {
                 flex-direction: column;
@@ -437,6 +482,15 @@
             .form-row {
                 flex-direction: column;
                 gap: 0;
+            }
+            
+            .application-form {
+                padding: 20px;
+            }
+            
+            .step {
+                flex-direction: column;
+                gap: 10px;
             }
         }
 
@@ -506,7 +560,7 @@
                 <li><a href="{{ route('admin.login') }}"><i class="fas fa-cog"></i> ระบบจัดการ</a></li>
                 <!-- Add link to admission report for admins -->
                 @auth
-                <li><a href="{{ route('admin.admission.report') }}"><i class="fas fa-chart-bar"></i> รายงานการรับสมัคร</a></li>
+
                 @endauth
                 <li><a href="{{ route('faculty.program.quotas') }}"><i class="fas fa-graduation-cap"></i> สาขาและจำนวนที่รับสมัคร</a></li>
                 <li><a href="#"><i class="fas fa-question-circle"></i> ตอบคำถาม</a></li>
@@ -523,7 +577,7 @@
 
         <div class="main-content">
             <!-- Back button added here -->
-            <a href="{{ url('/') }}" class="back-btn">
+            <a href="{{ route('index') }}" class="back-btn">
                 <i class="fas fa-arrow-left"></i> กลับไปหน้าหลัก
             </a>
             

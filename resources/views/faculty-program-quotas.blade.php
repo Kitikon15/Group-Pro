@@ -283,8 +283,8 @@
             </div>
         </div>
         <div class="user-info">
-            <a href="{{ url('/') }}" class="back-btn">
-                <i class="fas fa-arrow-left"></i> กลับไปหน้าหลัก
+            <a href="{{ route('admission') }}" class="back-btn">
+                <i class="fas fa-arrow-left"></i> กลับไปหน้าเมนู
             </a>
         </div>
     </div>

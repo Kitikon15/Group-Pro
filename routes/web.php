@@ -20,6 +20,11 @@ Route::get('/', function (\Illuminate\Http\Request $request) {
     return view('index');
 })->name('home');
 
+// Direct index route without authentication redirect
+Route::get('/index', function () {
+    return view('index');
+})->name('index');
+
 Route::get('/welcome', function (\Illuminate\Http\Request $request) {
     // Check if user is already logged in as admin
     if (Auth::check()) {

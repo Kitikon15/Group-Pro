@@ -1,24 +1,30 @@
 @extends('admin.layout')
 
 @section('content')
-<div class="content-card">
-    <h1 class="page-title">รายงานการรับสมัคร</h1>
+<div class="breadcrumb">
+    <a href="{{ route('admin.dashboard') }}">หน้าหลัก</a>
+    <span class="separator">/</span>
+    <span>รายงานการรับสมัคร</span>
+</div>
 
-    <!-- Edit button to switch to edit mode -->
-    <div style="text-align: right; margin-bottom: 20px;">
-        <button id="editButton" class="btn btn-primary" onclick="toggleEditMode()">
-            <i class="fas fa-edit"></i> แก้ไขข้อมูล
-        </button>
+<div class="content-card">
+    <div class="page-title">
+        <span>รายงานการรับสมัคร</span>
+        <div>
+            <button id="editButton" class="btn btn-primary" onclick="toggleEditMode()">
+                <i class="fas fa-edit"></i> <span class="btn-text">แก้ไขข้อมูล</span>
+            </button>
+        </div>
     </div>
 
     <!-- Display mode -->
     <div id="displayMode">
-        <div class="report-filters">
+        <div class="report-filters content-card">
             <h3><i class="fas fa-filter"></i> ตัวกรองข้อมูล</h3>
             <div class="filter-row">
                 <div class="filter-group">
                     <label for="faculty">คณะ</label>
-                    <select id="faculty">
+                    <select id="faculty" class="form-control">
                         <option value="">ทุกคณะ</option>
                         <option value="คณะวิทยาศาสตร์และเทคโนโลยี">คณะวิทยาศาสตร์และเทคโนโลยี</option>
                         <option value="คณะมนุษยศาสตร์และสังคมศาสตร์">คณะมนุษยศาสตร์และสังคมศาสตร์</option>
@@ -30,13 +36,13 @@
                 </div>
                 <div class="filter-group">
                     <label for="program">สาขาวิชา</label>
-                    <select id="program">
+                    <select id="program" class="form-control">
                         <option value="">ทุกสาขาวิชา</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label for="status">สถานะ</label>
-                    <select id="status">
+                    <select id="status" class="form-control">
                         <option value="">ทุกสถานะ</option>
                         <option value="pending">รอการตรวจสอบ</option>
                         <option value="approved">อนุมัติ</option>
@@ -47,11 +53,11 @@
             <div class="filter-row">
                 <div class="filter-group">
                     <label for="date-from">ตั้งแต่วันที่</label>
-                    <input type="date" id="date-from">
+                    <input type="date" id="date-from" class="form-control">
                 </div>
                 <div class="filter-group">
                     <label for="date-to">ถึงวันที่</label>
-                    <input type="date" id="date-to">
+                    <input type="date" id="date-to" class="form-control">
                 </div>
             </div>
             <div class="filter-buttons">
@@ -494,6 +500,26 @@
         border-color: #8B0000;
     }
 
+    .breadcrumb {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .breadcrumb a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+        text-decoration: underline;
+    }
+
+    .breadcrumb .separator {
+        color: #6c757d;
+    }
+
     @media (max-width: 768px) {
         .filter-row {
             flex-direction: column;
@@ -520,6 +546,20 @@
         .pagination {
             justify-content: center;
         }
+        
+        .button-row {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .btn-text {
+            display: none;
+        }
     }
 
     @media (max-width: 576px) {
@@ -545,12 +585,12 @@
         if (displayMode.style.display === 'none') {
             displayMode.style.display = 'block';
             editMode.style.display = 'none';
-            editButton.innerHTML = '<i class="fas fa-edit"></i> แก้ไขข้อมูล';
+            editButton.innerHTML = '<i class="fas fa-edit"></i> <span class="btn-text">แก้ไขข้อมูล</span>';
             editButton.className = 'btn btn-primary';
         } else {
             displayMode.style.display = 'none';
             editMode.style.display = 'block';
-            editButton.innerHTML = '<i class="fas fa-times"></i> ยกเลิกการแก้ไข';
+            editButton.innerHTML = '<i class="fas fa-times"></i> <span class="btn-text">ยกเลิกการแก้ไข</span>';
             editButton.className = 'btn btn-secondary';
         }
     }
