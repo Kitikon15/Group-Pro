@@ -263,9 +263,9 @@
             <img src="https://sc.npru.ac.th/sc_major/assets/images/app/logo.jpg" alt="คณะวิทยาศาสตร์และเทคโนโลยี">
             <div class="logo-text">มหาวิทยาลัยราชภัฏนครปฐม</div>
         </div>
-        <a href="{{ url('/admission') }}" class="back-link">
-            <i class="fas fa-arrow-left"></i> กลับไปหน้าสมัครเรียน
-        </a>
+        <a href="{{ route('home') }}" class="logout-btn">
+                <i class="fas fa-arrow-left"></i> กลับไปหน้าหลัก
+            </a>
     </div>
 
     <div class="container">

@@ -303,8 +303,8 @@
                 คุณจะถูกนำไปหน้าสมัครเรียนโดยอัตโนมัติภายใน <span id="countdown">5</span> วินาที
             </div>
             
-            <a href="{{ url('/admission') }}" class="btn-home">
-                <i class="fas fa-home"></i> กลับไปหน้าสมัครเรียนตอนนี้
+            <a href="{{ route('home') }}" class="logout-btn">
+                <i class="fas fa-arrow-left"></i> กลับไปหน้าหลัก
             </a>
         </div>
     </div>

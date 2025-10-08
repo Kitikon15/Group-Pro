@@ -484,7 +484,7 @@
     <footer>
         <p>© 2025 มหาวิทยาลัยราชภัฏนครปฐม คณะวิทยาศาสตร์และเทคโนโลยี</p>
         <p>โทรศัพท์: 0-3423-3274 ต่อ 2111 | อีเมล: sci.npru@gmail.com</p>
-        <p><a href="{{ route('admin.login') }}">เข้าสู่ระบบ Admin</a> | <a href="{{ route('application') }}">สมัครเรียน</a></p>
+        <p><a href="{{ route('index') }}">หน้าหลัก</a> | <a href="{{ route('admin.login') }}">เข้าสู่ระบบ Admin</a> | <a href="{{ route('application') }}">สมัครเรียน</a></p>
     </footer>
 
     <script>

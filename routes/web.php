@@ -11,13 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-Route::get('/', function (\Illuminate\Http\Request $request) {
-    // Check if user is already logged in as admin
-    if (Auth::check()) {
-        return redirect()->route('admin.dashboard');
-    }
-    
-    return view('index');
+Route::get('/', function () {
+    return redirect()->route('index');
 })->name('home');
 
 // Direct index route without authentication redirect
