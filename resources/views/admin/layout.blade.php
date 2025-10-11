@@ -500,6 +500,10 @@
                     <i class="fas fa-list-ol"></i>
                     <span>ขั้นตอนการสมัคร</span>
                 </a></li>
+                <li><a href="{{ route('admin.generic.data.index', ['model' => 'News']) }}" class="{{ request()->routeIs('admin.generic.data.*') ? 'active' : '' }}">
+                    <i class="fas fa-database"></i>
+                    <span>จัดการข้อมูลทั่วไป</span>
+                </a></li>
             </ul>
         </div>
 

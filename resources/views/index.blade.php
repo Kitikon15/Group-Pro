@@ -328,6 +328,9 @@
             <div class="lang-flag">
                 <img src="https://sc.npru.ac.th/sc_major/assets/images/langs/tha.png" alt="Thai Flag" style="height: 18px;">
             </div>
+            <a href="{{ route('login') }}" class="apply-btn" style="background: linear-gradient(135deg, #4e54c8, #8f94fb); margin-right: 10px;">
+                <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+            </a>
             <a href="{{ route('application') }}" class="apply-btn">
                 <i class="fas fa-user-plus"></i> สมัครเรียน
             </a>
@@ -351,39 +354,36 @@
             <h2><i class="fas fa-newspaper"></i> ข่าวประชาสัมพันธ์</h2>
             
             <div class="news-section">
+                @forelse($news as $item)
                 <div class="news-item">
-                    <h3><i class="fas fa-bullhorn"></i> รับสมัครนักศึกษาระดับปริญญาตรี ภาคปกติ ปีการศึกษา 2569 (รอบที่ 1)(ด่วนที่สุด)</h3>
-                    <div class="news-banner-placeholder news-banner-1">
-                    </div>
+                    <h3><i class="fas fa-bullhorn"></i> {{ $item->title }}</h3>
+                    @if($item->image)
+                        <div class="news-banner-placeholder" style="background-image: url('{{ asset($item->image) }}');">
+                        </div>
+                    @else
+                        <div class="news-banner-placeholder" style="background-color: #ffd700; color: #000;">
+                            {{ Str::limit($item->title, 50) }}
+                        </div>
+                    @endif
                     <div class="news-details">
-                        <div class="news-author">ประกาศโดย: academic.npru</div>
-                        <div class="news-date">วันที่ประกาศ: 5 สิงหาคม 2568</div>
+                        <div class="news-author">ประกาศโดย: {{ $item->author ?? 'admin' }}</div>
+                        <div class="news-date">วันที่ประกาศ: {{ \Carbon\Carbon::parse($item->publish_date)->format('j F Y') }}</div>
                         <a href="#" class="read-more">อ่านเพิ่มเติม</a>
                     </div>
                 </div>
-                
+                @empty
                 <div class="news-item">
-                    <h3><i class="fas fa-bullhorn"></i> รับสมัครนักศึกษาระดับปริญญาตรี ภาคกศ.พป. ปีการศึกษา 2569 (รอบที่ 1)</h3>
-                    <div class="news-banner-placeholder news-banner-2">
+                    <h3><i class="fas fa-bullhorn"></i> ยังไม่มีข่าวประชาสัมพันธ์</h3>
+                    <div class="news-banner-placeholder" style="background-color: #f0f0f0; color: #666;">
+                        ไม่มีข่าวประชาสัมพันธ์ในขณะนี้
                     </div>
                     <div class="news-details">
-                        <div class="news-author">ประกาศโดย: academic.npru</div>
-                        <div class="news-date">วันที่ประกาศ: 5 สิงหาคม 2568</div>
-                        <a href="#" class="read-more">อ่านเพิ่มเติม</a>
+                        <div class="news-author">ประกาศโดย: ระบบ</div>
+                        <div class="news-date">วันที่ประกาศ: -</div>
+                        <a href="#" class="read-more" style="opacity: 0.5; pointer-events: none;">อ่านเพิ่มเติม</a>
                     </div>
                 </div>
-                
-                <div class="news-item">
-                    <h3><i class="fas fa-bullhorn"></i> ประกาศรับสมัครนักศึกษาใหม่ ปีการศึกษา 2569 รอบที่ 2</h3>
-                    <div class="news-banner-placeholder" style="background-color: #ffd700; color: #000;">
-                        รับสมัครนักศึกษาใหม่ ปีการศึกษา 2569 รอบที่ 2
-                    </div>
-                    <div class="news-details">
-                        <div class="news-author">ประกาศโดย: งานรับเข้าศึกษา</div>
-                        <div class="news-date">วันที่ประกาศ: 15 สิงหาคม 2568</div>
-                        <a href="#" class="read-more">อ่านเพิ่มเติม</a>
-                    </div>
-                </div>
+                @endforelse
             </div>
             
             <!-- Faculty and Program Information Section -->
@@ -484,7 +484,7 @@
     <footer>
         <p>© 2025 มหาวิทยาลัยราชภัฏนครปฐม คณะวิทยาศาสตร์และเทคโนโลยี</p>
         <p>โทรศัพท์: 0-3423-3274 ต่อ 2111 | อีเมล: sci.npru@gmail.com</p>
-        <p><a href="{{ route('index') }}">หน้าหลัก</a> | <a href="{{ route('admin.login') }}">เข้าสู่ระบบ Admin</a> | <a href="{{ route('application') }}">สมัครเรียน</a></p>
+        <p><a href="{{ route('index') }}">หน้าหลัก</a> | <a href="{{ route('admin.login') }}">เข้าสู่ระบบ Admin</a> | <a href="{{ route('login') }}">เข้าสู่ระบบ</a> | <a href="{{ route('application') }}">สมัครเรียน</a></p>
     </footer>
 
     <script>

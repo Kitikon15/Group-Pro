@@ -539,10 +539,10 @@
                     <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
                 </a>
             @else
-                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-alt').submit();" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                <a href="{{ route('login') }}" class="logout-btn">
+                    <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
                 </a>
-                <form id="logout-form-alt" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                <form id="logout-form-alt" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
             @endif
@@ -565,6 +565,9 @@
                 <li><a href="{{ route('faculty.program.quotas') }}"><i class="fas fa-graduation-cap"></i> สาขาและจำนวนที่รับสมัคร</a></li>
                 <li><a href="#"><i class="fas fa-question-circle"></i> ตอบคำถาม</a></li>
                 <li><a href="{{ route('application.process') }}"><i class="fas fa-list-ol"></i> ขั้นตอนการสมัคร</a></li>
+                @if(session('has_applied'))
+                    <li><a href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบผู้ใช้</a></li>
+                @endif
             </ul>
 
             <div class="menu-header">
@@ -936,7 +939,7 @@
                     <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-bottom').submit();" class="btn-submit" style="text-decoration: none; display: inline-block;">
                         <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
                     </a>
-                    <form id="logout-form-bottom" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form-bottom" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                 </div>

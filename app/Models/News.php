@@ -11,6 +11,12 @@ class News extends Model
         'content',
         'type',
         'publish_date',
-        'status'
+        'status',
+        'author',
+        'image'
+    ];
+    
+    protected $casts = [
+        'publish_date' => 'date',
     ];
 }

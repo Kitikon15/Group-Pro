@@ -17,7 +17,13 @@ Route::get('/', function () {
 
 // Direct index route without authentication redirect
 Route::get('/index', function () {
-    return view('index');
+    // Fetch published news from the database
+    $news = \App\Models\News::where('status', 'เผยแพร่')
+        ->orderBy('publish_date', 'desc')
+        ->limit(3)
+        ->get();
+    
+    return view('index', compact('news'));
 })->name('index');
 
 Route::get('/welcome', function (\Illuminate\Http\Request $request) {
@@ -28,6 +34,59 @@ Route::get('/welcome', function (\Illuminate\Http\Request $request) {
     
     return view('welcome');
 });
+
+// User login routes
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('/login', function (\Illuminate\Http\Request $request) {
+    // Validate the input
+    $request->validate([
+        'email' => 'required|email',
+    ], [
+        'email.required' => 'กรุณากรอกอีเมล',
+        'email.email' => 'รูปแบบอีเมลไม่ถูกต้อง',
+    ]);
+
+    // Find user by email
+    $user = User::where('email', $request->email)->first();
+
+    // If user exists, log them in
+    if ($user) {
+        // Log in the user
+        Auth::login($user);
+        
+        // Regenerate session to prevent session fixation
+        $request->session()->regenerate();
+        
+        // Check if user is admin
+        if ($user->is_admin) {
+            return redirect()->intended(route('admin.dashboard'));
+        }
+        
+        // Redirect to admission page for regular users
+        return redirect()->intended(route('admission'));
+    }
+
+    // If user doesn't exist, redirect to application page with error
+    return redirect()->route('application')->withErrors([
+        'email' => 'ไม่พบผู้ใช้ด้วยอีเมลนี้ โปรดสมัครเรียนก่อนเข้าสู่ระบบ',
+    ]);
+})->name('login.submit');
+
+// User logout route
+Route::post('/logout', function (\Illuminate\Http\Request $request) {
+    Auth::logout();
+    
+    // Invalidate the session
+    $request->session()->invalidate();
+    
+    // Regenerate CSRF token
+    $request->session()->regenerateToken();
+    
+    return redirect()->route('index');
+})->name('logout');
 
 // Admission route
 Route::get('/admission', function () {
@@ -58,6 +117,7 @@ Route::post('/application', function (\Illuminate\Http\Request $request) {
         'name' => $request->input('first_name', 'Admin User') . ' ' . $request->input('last_name', ''),
         'email' => $request->input('email', 'admin@example.com'),
         'password' => Hash::make('password123'), // Default password for demo
+        'is_admin' => false, // Regular users are not admins by default
     ];
     
     // Check if user already exists
@@ -860,3 +920,13 @@ Route::put('/admin/application-process', function (\Illuminate\Http\Request $req
     
     return redirect()->route('admin.application.process')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว!');
 })->name('admin.application.process.update')->middleware('admin');
+
+// Generic data management routes
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin/data', [App\Http\Controllers\Admin\GenericDataController::class, 'index'])->name('admin.generic.data.index');
+    Route::get('/admin/data/create', [App\Http\Controllers\Admin\GenericDataController::class, 'create'])->name('admin.generic.data.create');
+    Route::post('/admin/data', [App\Http\Controllers\Admin\GenericDataController::class, 'store'])->name('admin.generic.data.store');
+    Route::get('/admin/data/{id}/edit', [App\Http\Controllers\Admin\GenericDataController::class, 'edit'])->name('admin.generic.data.edit');
+    Route::put('/admin/data/{id}', [App\Http\Controllers\Admin\GenericDataController::class, 'update'])->name('admin.generic.data.update');
+    Route::delete('/admin/data/{id}', [App\Http\Controllers\Admin\GenericDataController::class, 'destroy'])->name('admin.generic.data.destroy');
+});

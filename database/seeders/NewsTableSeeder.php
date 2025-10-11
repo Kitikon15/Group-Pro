@@ -17,7 +17,8 @@ class NewsTableSeeder extends Seeder
             'content' => 'โครงการอบรมเชิงปฏิบัติการด้านการเขียนโปรแกรมสำหรับนักศึกษาชั้นปีที่ 2-3',
             'type' => 'กิจกรรมนักศึกษา',
             'publish_date' => '2025-09-15',
-            'status' => 'เผยแพร่'
+            'status' => 'published',
+            'author' => 'งานกิจกรรมนักศึกษา'
         ]);
 
         News::create([
@@ -25,7 +26,8 @@ class NewsTableSeeder extends Seeder
             'content' => 'รับสมัครนักศึกษาปริญญาตรี ปีการศึกษา 2569 จำนวน 100 ทุน',
             'type' => 'ประกาศ',
             'publish_date' => '2025-09-10',
-            'status' => 'เผยแพร่'
+            'status' => 'published',
+            'author' => 'งานรับเข้าศึกษา'
         ]);
 
         News::create([
@@ -33,7 +35,8 @@ class NewsTableSeeder extends Seeder
             'content' => 'สัมมนาหัวข้อ "เทคโนโลยีในศตวรรษที่ 21" โดยผู้เชี่ยวชาญจากต่างประเทศ',
             'type' => 'กิจกรรม',
             'publish_date' => '2025-09-05',
-            'status' => 'ร่าง'
+            'status' => 'draft',
+            'author' => 'งานประชาสัมพันธ์'
         ]);
     }
 }
