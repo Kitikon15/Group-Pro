@@ -1,60 +1,38 @@
-# University Admission System - UML Diagrams
+# WEB-NPRU University Admission System - Design Documents
 
-This directory contains UML diagrams for the University Admission System project.
+This directory contains all design documents for the WEB-NPRU University Admission System:
 
-## Diagrams Included
+## Diagrams and Documents
 
-1. **Use Case Diagram** (`use-case-diagram.md`) - Shows the interactions between users (Applicants and Admins) and system functions
-2. **ER Diagram** (`er-diagram.md`) - Entity-Relationship diagram showing database structure and relationships
-3. **Class Diagram** (`class-diagram.md`) - Object-oriented class structure with attributes and methods
-4. **Activity Diagram** (`activity-diagram.md`) - Workflow diagram showing the application process flow
-5. **All Diagrams** (`all-diagrams.md`) - Combined file with all diagrams
+1. **ER_Diagram.md** - Entity Relationship Diagram showing the database structure and relationships between entities
+2. **Use_Case_Diagram.md** - Use Case Diagram illustrating the interactions between actors and system functions
+3. **Use_Case_Description.md** - Detailed Use Case Description document with comprehensive specifications
+4. **Class_Diagram.md** - Class Diagram showing the system's classes and their relationships
 
-## How to View Diagrams
+## System Overview
 
-These diagrams are created using Mermaid syntax. You can view them in several ways:
+The WEB-NPRU University Admission System is a Laravel-based web application that facilitates the university admission process. It serves two main user types:
 
-### Option 1: Online Mermaid Editor
-1. Go to [https://mermaid.live](https://mermaid.live)
-2. Copy the content of any `.md` file
-3. Paste it into the editor
-4. The diagram will render automatically
+- **Applicants**: Prospective students who wish to apply for admission
+- **Administrators**: University staff who manage the admission process and system content
 
-### Option 2: VS Code with Mermaid Extension
-1. Install the "Mermaid Preview" extension in VS Code
-2. Open any `.md` file
-3. Use the "Preview Mermaid Diagram" command
+## Key Features
 
-### Option 3: GitHub
-1. Push these files to a GitHub repository
-2. GitHub will automatically render the Mermaid diagrams
+- User registration and authentication
+- Application submission and tracking
+- News and announcement management
+- Course information management
+- Personnel information management
+- System settings management
+- Admission reporting
+- Program quota information
+- Application process guidance
 
-## Diagram Descriptions
+## Technical Architecture
 
-### Use Case Diagram
-Shows the functional requirements of the system from the perspective of different user roles:
-- **Applicant**: Can apply for admission, check status, edit applications, view news, and view programs
-- **Admin**: Can manage news, applications, programs, personnel, and view reports
+The system follows Laravel's MVC (Model-View-Controller) architecture:
+- Models: Handle data and business logic
+- Views: Present information to users
+- Controllers: Process user input and interact with models
 
-### ER Diagram
-Represents the database schema with entities and their relationships:
-- **Users**: System users (applicants and admins)
-- **Applications**: Student application forms
-- **News**: News and announcements
-- **Programs**: Academic programs and quotas
-- **Personnel**: Faculty and staff information
-- **Settings**: System configuration
-
-### Class Diagram
-Shows the object-oriented structure of the system with classes, attributes, methods, and relationships.
-
-### Activity Diagram
-Illustrates the workflow of the application process from user visit to enrollment completion.
-
-## Usage
-These diagrams can be used for:
-- System documentation
-- Developer onboarding
-- Requirements analysis
-- Database design
-- Code architecture planning
+The system includes 5 main models: User, News, Course, Personnel, and Setting, each with appropriate attributes and relationships.
