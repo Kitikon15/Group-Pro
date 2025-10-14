@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\PersonnelController;
@@ -87,6 +88,10 @@ Route::post('/logout', function (\Illuminate\Http\Request $request) {
     
     return redirect()->route('index');
 })->name('logout');
+
+// Registration routes
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
 
 // Admission route
 Route::get('/admission', function () {

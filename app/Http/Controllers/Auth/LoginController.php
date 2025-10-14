@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
@@ -36,6 +38,9 @@ class LoginController extends Controller
             'password.required' => 'กรุณากรอกรหัสผ่าน',
         ]);
 
+        // Rate limiting: 5 attempts per IP address for 15 minutes
+        $this->ensureIsNotRateLimited();
+
         // Try to authenticate with email first
         $credentials = [
             'email' => $request->username,
@@ -47,14 +52,73 @@ class LoginController extends Controller
             // Regenerate session to prevent session fixation
             $request->session()->regenerate();
             
+            // Clear the rate limiter for this user
+            $this->clearLoginAttempts($request);
+            
             // Redirect to intended page or admin dashboard
             return redirect()->intended(route('admin.dashboard'));
         }
+
+        // Authentication failed - increment the rate limiter
+        $this->incrementLoginAttempts($request);
 
         // Authentication failed
         return back()->withErrors([
             'username' => 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
         ])->withInput($request->only('username'));
+    }
+
+    /**
+     * Ensure the user is not rate limited
+     *
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function ensureIsNotRateLimited()
+    {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            return;
+        }
+
+        $seconds = RateLimiter::availableIn($this->throttleKey());
+
+        // Convert seconds to minutes for error message
+        $minutes = ceil($seconds / 60);
+
+        abort(429, __('Too many login attempts. Please try again in :minutes minutes.', ['minutes' => $minutes]));
+    }
+
+    /**
+     * Increment the login attempts for the user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function incrementLoginAttempts($request)
+    {
+        RateLimiter::hit($this->throttleKey());
+    }
+
+    /**
+     * Clear the login attempts for the user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function clearLoginAttempts($request)
+    {
+        RateLimiter::clear($this->throttleKey());
+    }
+
+    /**
+     * Get the rate limiting throttle key for the request
+     *
+     * @return string
+     */
+    protected function throttleKey()
+    {
+        return Str::transliterate(Str::lower(request('username')).'|'.request()->ip());
     }
 
     /**
