@@ -24,11 +24,11 @@ class DatabaseSeeder extends Seeder
         }
         
         // Create admin user with specified credentials
-        if (!User::where('email', 'admin@')->exists()) {
+        if (!User::where('email', 'admin@gmail.com')->exists()) {
             User::factory()->create([
                 'name' => 'Admin User',
-                'email' => 'admin@',
-                'password' => Hash::make('adimin'),
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('admin'),
                 'is_admin' => true,
             ]);
         }

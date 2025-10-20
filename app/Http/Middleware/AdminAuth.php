@@ -20,6 +20,13 @@ class AdminAuth
             return redirect()->route('admin.login');
         }
         
+        // Check if the authenticated user is an admin
+        if (!Auth::user()->is_admin) {
+            // If not an admin, redirect to the main login page or home page
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['error' => 'คุณไม่มีสิทธิ์เข้าถึงหน้านี้']);
+        }
+        
         return $next($request);
     }
 }
