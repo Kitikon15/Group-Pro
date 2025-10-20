@@ -236,7 +236,7 @@
             @csrf
             <div class="form-group">
                 <label for="username">อีเมล</label>
-                <input type="text" id="username" name="username" placeholder="กรุณากรอกอีเมล" value="{{ old('username', 'kitikon@gmail.com') }}" required>
+                <input type="text" id="username" name="username" placeholder="กรุณากรอกอีเมล" value="{{ old('username') }}" required>
             </div>
             <div class="form-group">
                 <label for="password">รหัสผ่าน</label>
@@ -244,6 +244,12 @@
             </div>
             <button type="submit" class="btn-login">เข้าสู่ระบบ</button>
         </form>
+        
+        <div class="credentials-info">
+            <h3><i class="fas fa-info-circle"></i> ข้อมูลสำหรับเข้าสู่ระบบ Admin</h3>
+            <p>ชื่อผู้ใช้: <span class="highlight">admin@gmail.com</span></p>
+            <p>รหัสผ่าน: <span class="highlight">admin</span></p>
+        </div>
         
         <a href="{{ url('/admission') }}" class="back-link">← กลับไปหน้าสมัครเรียน</a>
         

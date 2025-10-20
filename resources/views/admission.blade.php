@@ -553,21 +553,10 @@
         <div class="sidebar">
             <h2>เมนูหลัก</h2>
             <ul class="menu-list">
-                <!-- Only show registration menu if user hasn't applied yet -->
-                @if(!session('has_applied'))
-                    <li><a href="{{ route('application') }}" class="active"><i class="fas fa-user-plus"></i> ลงทะเบียนเข้าระบบ</a></li>
-                @endif
                 <li><a href="{{ route('admin.login') }}"><i class="fas fa-cog"></i> ระบบจัดการ</a></li>
-                <!-- Add link to admission report for admins -->
-                @auth
-
-                @endauth
                 <li><a href="{{ route('faculty.program.quotas') }}"><i class="fas fa-graduation-cap"></i> สาขาและจำนวนที่รับสมัคร</a></li>
                 <li><a href="#"><i class="fas fa-question-circle"></i> ตอบคำถาม</a></li>
                 <li><a href="{{ route('application.process') }}"><i class="fas fa-list-ol"></i> ขั้นตอนการสมัคร</a></li>
-                @if(session('has_applied'))
-                    <li><a href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบผู้ใช้</a></li>
-                @endif
             </ul>
 
             <div class="menu-header">
@@ -592,358 +581,176 @@
                 </div>
             @endif
             
-            <!-- Only show application form if user hasn't applied yet -->
-            @if(!session('has_applied'))
-                <div class="page-header">
-                    <h1><i class="fas fa-user-plus"></i> แบบฟอร์มสมัครเรียน</h1>
-                    <p>กรุณากรอกข้อมูลด้านล่างเพื่อสมัครเข้าเรียนในมหาวิทยาลัยราชภัฏนครปฐม</p>
-                </div>
+            <div class="page-header">
+                <h1><i class="fas fa-user-plus"></i> แบบฟอร์มสมัครเรียน</h1>
+                <p>กรุณากรอกข้อมูลด้านล่างเพื่อสมัครเข้าเรียนในมหาวิทยาลัยราชภัฏนครปฐม</p>
+            </div>
 
-                <div class="info-box">
-                    <h3><i class="fas fa-info-circle"></i> ข้อมูลสำคัญ</h3>
-                    <p>กรุณาตรวจสอบความถูกต้องของข้อมูลก่อนส่งแบบฟอร์ม ข้อมูลที่กรอกจะถูกใช้ในการพิจารณาการรับสมัคร</p>
-                </div>
+            <div class="info-box">
+                <h3><i class="fas fa-info-circle"></i> ข้อมูลสำคัญ</h3>
+                <p>กรุณาตรวจสอบความถูกต้องของข้อมูลก่อนส่งแบบฟอร์ม ข้อมูลที่กรอกจะถูกใช้ในการพิจารณาการรับสมัคร</p>
+            </div>
 
-                <form class="application-form" method="POST" action="{{ route('application.submit') }}">
-                    @csrf
-                    <div class="form-section">
-                        <h2><i class="fas fa-user"></i> ข้อมูลส่วนตัว</h2>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="title">คำนำหน้าชื่อ</label>
-                                <select id="title" name="title" required>
-                                    <option value="">เลือกคำนำหน้า</option>
-                                    <option value="นาย">นาย</option>
-                                    <option value="นางสาว">นางสาว</option>
-                                    <option value="นาง">นาง</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="gender">เพศ</label>
-                                <select id="gender" name="gender" required>
-                                    <option value="">เลือกเพศ</option>
-                                    <option value="ชาย">ชาย</option>
-                                    <option value="หญิง">หญิง</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="first_name">ชื่อ</label>
-                                <input type="text" id="first_name" name="first_name" placeholder="กรุณากรอกชื่อ" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="last_name">นามสกุล</label>
-                                <input type="text" id="last_name" name="last_name" placeholder="กรุณากรอกนามสกุล" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="id_card">เลขบัตรประชาชน</label>
-                                <input type="text" id="id_card" name="id_card" placeholder="กรุณากรอกเลขบัตรประชาชน 13 หลัก" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="birth_date">วัน/เดือน/ปี เกิด</label>
-                                <input type="date" id="birth_date" name="birth_date" required>
-                            </div>
-                        </div>
-                    </div>
+            <form class="application-form" method="POST" action="{{ route('application.submit') }}">
+                @csrf
+                <div class="form-section">
+                    <h2><i class="fas fa-user"></i> ข้อมูลส่วนตัว</h2>
                     
-                    <div class="form-section">
-                        <h2><i class="fas fa-home"></i> ที่อยู่ตามทะเบียนบ้าน</h2>
-                        
+                    <div class="form-row">
                         <div class="form-group">
-                            <label for="address">ที่อยู่</label>
-                            <textarea id="address" name="address" rows="3" placeholder="กรุณากรอกที่อยู่ตามทะเบียนบ้าน" required></textarea>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="province">จังหวัด</label>
-                                <input type="text" id="province" name="province" placeholder="กรุณากรอกจังหวัด" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="postal_code">รหัสไปรษณีย์</label>
-                                <input type="text" id="postal_code" name="postal_code" placeholder="กรุณากรอกรหัสไปรษณีย์" required>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <h2><i class="fas fa-phone"></i> ข้อมูลการติดต่อ</h2>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="phone">เบอร์โทรศัพท์</label>
-                                <input type="tel" id="phone" name="phone" placeholder="กรุณากรอกเบอร์โทรศัพท์" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">อีเมล</label>
-                                <input type="email" id="email" name="email" placeholder="กรุณากรอกอีเมล" required>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <h2><i class="fas fa-graduation-cap"></i> ข้อมูลการศึกษา</h2>
-                        
-                        <div class="form-group">
-                            <label for="education_level">ระดับการศึกษา</label>
-                            <select id="education_level" name="education_level" required>
-                                <option value="">เลือกระดับการศึกษา</option>
-                                <option value="ม.6">มัธยมศึกษาตอนปลาย</option>
-                                <option value="ปวช.">ประกาศนียบัตรวิชาชีพ</option>
-                                <option value="ปวส.">ประกาศนียบัตรวิชาชีพชั้นสูง</option>
+                            <label for="title">คำนำหน้าชื่อ</label>
+                            <select id="title" name="title" required>
+                                <option value="">เลือกคำนำหน้า</option>
+                                <option value="นาย">นาย</option>
+                                <option value="นางสาว">นางสาว</option>
+                                <option value="นาง">นาง</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="school_name">ชื่อสถานศึกษา</label>
-                            <input type="text" id="school_name" name="school_name" placeholder="กรุณากรอกชื่อสถานศึกษา" required>
+                            <label for="gender">เพศ</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">เลือกเพศ</option>
+                                <option value="ชาย">ชาย</option>
+                                <option value="หญิง">หญิง</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first_name">ชื่อ</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="กรุณากรอกชื่อ" required>
                         </div>
                         
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="gpa">เกรดเฉลี่ยสะสม</label>
-                                <input type="number" id="gpa" name="gpa" step="0.01" min="0" max="4" placeholder="เช่น 3.50" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="graduation_year">ปีที่จบการศึกษา</label>
-                                <input type="number" id="graduation_year" name="graduation_year" min="2000" max="2030" placeholder="เช่น 2024" required>
-                            </div>
+                        <div class="form-group">
+                            <label for="last_name">นามสกุล</label>
+                            <input type="text" id="last_name" name="last_name" placeholder="กรุณากรอกนามสกุล" required>
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn-submit">
-                        <i class="fas fa-paper-plane"></i> ส่งแบบฟอร์มสมัคร
-                    </button>
-                </form>
-                
-                <div class="requirements">
-                    <h2><i class="fas fa-list"></i> เอกสารที่ต้องใช้ในการสมัคร</h2>
-                    <ul>
-                        <li>สำเนาบัตรประชาชน 1 ฉบับ</li>
-                        <li>สำเนาทะเบียนบ้าน 1 ฉบับ</li>
-                        <li>รูปถ่ายหน้าตรง ขนาด 1 นิ้ว 2 ใบ</li>
-                        <li>ใบรับรองผลการศึกษา (ปพ.1 หรือ ปพ.7)</li>
-                        <li>ใบแสดงผลการเรียน (ปพ.7)</li>
-                        <li>สำเนาเกียรติบัตร (ถ้ามี)</li>
-                    </ul>
-                </div>
-                
-                <!-- Faculty and Program Information Section -->
-                <div class="requirements" style="margin-top: 30px;">
-                    <h2><i class="fas fa-university"></i> คณะและสาขาวิชาที่เปิดรับสมัคร</h2>
-                    <p>มหาวิทยาลัยราชภัฏนครปฐมมีหลายคณะและสาขาวิชาให้เลือกเรียน ดังนี้:</p>
-                    
-                    <div style="margin-top: 20px;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-graduation-cap"></i> คณะวิทยาศาสตร์และเทคโนโลยี
-                        </h3>
-                        <ul>
-                            <li>สาขาวิชาวิศวกรรมซอฟต์แวร์ (Software Engineering)</li>
-                            <li>สาขาวิชาวิทยาการคอมพิวเตอร์ (Computer Science)</li>
-                            <li>สาขาวิชาเทคโนโลยีสารสนเทศ (Information Technology)</li>
-                            <li>สาขาวิชาวิทยาศาสตร์สิ่งแวดล้อม (Environmental Science)</li>
-                            <li>สาขาวิชาฟิสิกส์ (Physics)</li>
-                            <li>สาขาวิชาเคมี (Chemistry)</li>
-                            <li>สาขาวิชาชีววิทยา (Biology)</li>
-                            <li>สาขาวิชาคณิตศาสตร์ (Mathematics)</li>
-                        </ul>
-                    </div>
-                    
-                    <div style="margin-top: 20px;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-book"></i> คณะมนุษยศาสตร์และสังคมศาสตร์
-                        </h3>
-                        <ul>
-                            <li>สาขาวิชาภาษาไทย (Thai Language)</li>
-                            <li>สาขาวิชาภาษาอังกฤษ (English Language)</li>
-                            <li>สาขาวิชาภาษาจีน (Chinese Language)</li>
-                            <li>สาขาวิชาประวัติศาสตร์ (History)</li>
-                            <li>สาขาวิชาภูมิศาสตร์ (Geography)</li>
-                            <li>สาขาวิชารัฐศาสตร์การปกครอง (Political Science and Public Administration)</li>
-                            <li>สาขาวิชาสังคมวิทยา (Sociology)</li>
-                            <li>สาขาวิชาจิตวิทยา (Psychology)</li>
-                        </ul>
-                    </div>
-                    
-                    <div style="margin-top: 20px;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-chalkboard-teacher"></i> คณะครุศาสตร์
-                        </h3>
-                        <ul>
-                            <li>สาขาวิชาการสอนภาษาอังกฤษ (English Teaching)</li>
-                            <li>สาขาวิชาการสอนคณิตศาสตร์ (Mathematics Teaching)</li>
-                            <li>สาขาวิชาการสอนวิทยาศาสตร์ (Science Teaching)</li>
-                            <li>สาขาวิชาการสอนสังคมศึกษา (Social Studies Teaching)</li>
-                            <li>สาขาวิชาการสอนภาษาไทย (Thai Language Teaching)</li>
-                        </ul>
-                    </div>
-                    
-                    <div style="margin-top: 20px;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-business-time"></i> คณะวิทยาการจัดการ
-                        </h3>
-                        <ul>
-                            <li>สาขาวิชาการจัดการ (Management)</li>
-                            <li>สาขาวิชาการตลาด (Marketing)</li>
-                            <li>สาขาวิชาบัญชี (Accounting)</li>
-                            <li>สาขาวิชาการเงิน (Finance)</li>
-                            <li>สาขาวิชาคอมพิวเตอร์ธุรกิจ (Business Computer)</li>
-                        </ul>
-                    </div>
-                    
-                    <div style="margin-top: 20px;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-palette"></i> คณะศิลปกรรมศาสตร์
-                        </h3>
-                        <ul>
-                            <li>สาขาวิชาศิลปกรรม (Fine Arts)</li>
-                            <li>สาขาวิชาการออกแบบ (Design)</li>
-                            <li>สาขาวิชาดนตรี (Music)</li>
-                            <li>สาขาวิชาการแสดง (Performing Arts)</li>
-                        </ul>
-                    </div>
-                    
-                    <div style="margin-top: 20px;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-heartbeat"></i> คณะพยาบาลศาสตร์
-                        </h3>
-                        <ul>
-                            <li>สาขาวิชาพยาบาลศาสตร์ (Nursing Science)</li>
-                        </ul>
-                    </div>
-                </div>
-            @else
-                <!-- Show message after successful application -->
-                <div class="page-header">
-                    <h1><i class="fas fa-check-circle"></i> สมัครเรียนสำเร็จ!</h1>
-                    <p>ขอบคุณที่สมัครเข้าเรียนในมหาวิทยาลัยราชภัฏนครปฐม</p>
-                </div>
-                
-                <div class="info-box" style="background: linear-gradient(135deg, #d4edda, #c3e6cb); border-left: 4px solid #28a745;">
-                    <h3><i class="fas fa-info-circle"></i> ข้อมูลสำคัญ</h3>
-                    <p>ระบบได้รับใบสมัครของคุณเรียบร้อยแล้ว ทางมหาวิทยาลัยจะดำเนินการตรวจสอบข้อมูลและติดต่อกลับภายใน 3-5 วันทำการ</p>
-                </div>
-                
-                <!-- Display submitted application data -->
-                <div class="requirements" style="margin-top: 30px;">
-                    <h2><i class="fas fa-file-alt"></i> ข้อมูลการสมัครของคุณ</h2>
-                    
-                    @php
-                        $applicationData = session('application_data', []);
-                    @endphp
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
-                        <div>
-                            <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                                <i class="fas fa-user"></i> ข้อมูลส่วนตัว
-                            </h3>
-                            <p><strong>ชื่อ-นามสกุล:</strong> {{ $applicationData['title'] ?? '' }} {{ $applicationData['first_name'] ?? '' }} {{ $applicationData['last_name'] ?? '' }}</p>
-                            <p><strong>เพศ:</strong> {{ $applicationData['gender'] ?? '' }}</p>
-                            <p><strong>เลขบัตรประชาชน:</strong> {{ $applicationData['id_card'] ?? '' }}</p>
-                            <p><strong>วันเกิด:</strong> {{ $applicationData['birth_date'] ?? '' }}</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_card">เลขบัตรประชาชน</label>
+                            <input type="text" id="id_card" name="id_card" placeholder="กรุณากรอกเลขบัตรประชาชน 13 หลัก" required>
                         </div>
                         
-                        <div>
-                            <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                                <i class="fas fa-home"></i> ที่อยู่
-                            </h3>
-                            <p><strong>ที่อยู่:</strong> {{ $applicationData['address'] ?? '' }}</p>
-                            <p><strong>จังหวัด:</strong> {{ $applicationData['province'] ?? '' }}</p>
-                            <p><strong>รหัสไปรษณีย์:</strong> {{ $applicationData['postal_code'] ?? '' }}</p>
+                        <div class="form-group">
+                            <label for="birth_date">วัน/เดือน/ปี เกิด</label>
+                            <input type="date" id="birth_date" name="birth_date" required>
                         </div>
-                        
-                        <div>
-                            <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                                <i class="fas fa-phone"></i> ข้อมูลการติดต่อ
-                            </h3>
-                            <p><strong>เบอร์โทรศัพท์:</strong> {{ $applicationData['phone'] ?? '' }}</p>
-                            <p><strong>อีเมล:</strong> {{ $applicationData['email'] ?? '' }}</p>
-                        </div>
-                        
-                        <div>
-                            <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                                <i class="fas fa-graduation-cap"></i> ข้อมูลการศึกษา
-                            </h3>
-                            <p><strong>ระดับการศึกษา:</strong> {{ $applicationData['education_level'] ?? '' }}</p>
-                            <p><strong>ชื่อสถานศึกษา:</strong> {{ $applicationData['school_name'] ?? '' }}</p>
-                            <p><strong>เกรดเฉลี่ย:</strong> {{ $applicationData['gpa'] ?? '' }}</p>
-                            <p><strong>ปีที่จบ:</strong> {{ $applicationData['graduation_year'] ?? '' }}</p>
-                        </div>
-                        
-                        <div>
-                            <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                                <i class="fas fa-university"></i> คณะและสาขาวิชา
-                            </h3>
-                            <p><strong>คณะที่สนใจ:</strong> {{ $applicationData['faculty'] ?? '' }}</p>
-                            <p><strong>สาขาวิชาที่สนใจ:</strong> {{ $applicationData['program'] ?? '' }}</p>
-                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2><i class="fas fa-home"></i> ที่อยู่ตามทะเบียนบ้าน</h2>
+                    
+                    <div class="form-group">
+                        <label for="address">ที่อยู่</label>
+                        <textarea id="address" name="address" rows="3" placeholder="กรุณากรอกที่อยู่ตามทะเบียนบ้าน" required></textarea>
                     </div>
                     
-                    <!-- Edit button -->
-                    <div style="text-align: center; margin-top: 30px;">
-                        <a href="{{ route('application.edit') }}" class="btn-submit" style="text-decoration: none; display: inline-block; background: linear-gradient(135deg, #6c757d, #495057); margin-right: 15px;">
-                            <i class="fas fa-edit"></i> แก้ไขข้อมูล
-                        </a>
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-bottom').submit();" class="btn-submit" style="text-decoration: none; display: inline-block;">
-                            <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="steps">
-                    <h3><i class="fas fa-list"></i> ขั้นตอนถัดไป</h3>
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div>
-                            <strong>ตรวจสอบข้อมูล</strong>
-                            <p>เจ้าหน้าที่จะตรวจสอบข้อมูลที่คุณส่งมา</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="province">จังหวัด</label>
+                            <input type="text" id="province" name="province" placeholder="กรุณากรอกจังหวัด" required>
                         </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div>
-                            <strong>ติดต่อกลับ</strong>
-                            <p>เราจะติดต่อคุณผ่านอีเมลหรือโทรศัพท์เพื่อนัดหมายการสัมภาษณ์</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div>
-                            <strong>สัมภาษณ์</strong>
-                            <p>เข้าร่วมสัมภาษณ์ตามวันและเวลาที่กำหนด</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <div>
-                            <strong>ประกาศผล</strong>
-                            <p>ประกาศผลการรับเข้าศึกษาผ่านเว็บไซต์และอีเมล</p>
+                        
+                        <div class="form-group">
+                            <label for="postal_code">รหัสไปรษณีย์</label>
+                            <input type="text" id="postal_code" name="postal_code" placeholder="กรุณากรอกรหัสไปรษณีย์" required>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Add logout button after successful registration -->
-                <div style="text-align: center; margin-top: 30px; display: none;">
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-bottom').submit();" class="btn-submit" style="text-decoration: none; display: inline-block;">
-                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
-                    </a>
-                    <form id="logout-form-bottom" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                <div class="form-section">
+                    <h2><i class="fas fa-phone"></i> ข้อมูลการติดต่อ</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">เบอร์โทรศัพท์</label>
+                            <input type="tel" id="phone" name="phone" placeholder="กรุณากรอกเบอร์โทรศัพท์" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">อีเมล</label>
+                            <input type="email" id="email" name="email" placeholder="กรุณากรอกอีเมล" value="{{ Auth::check() ? Auth::user()->email : '' }}" required>
+                        </div>
+                    </div>
                 </div>
-            @endif
+                
+                <div class="form-section">
+                    <h2><i class="fas fa-graduation-cap"></i> ข้อมูลการศึกษา</h2>
+                    
+                    <div class="form-group">
+                        <label for="education_level">ระดับการศึกษา</label>
+                        <select id="education_level" name="education_level" required>
+                            <option value="">เลือกระดับการศึกษา</option>
+                            <option value="ม.6">มัธยมศึกษาตอนปลาย</option>
+                            <option value="ปวช.">ประกาศนียบัตรวิชาชีพ</option>
+                            <option value="ปวส.">ประกาศนียบัตรวิชาชีพชั้นสูง</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="school_name">ชื่อสถานศึกษา</label>
+                        <input type="text" id="school_name" name="school_name" placeholder="กรุณากรอกชื่อสถานศึกษา" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gpa">เกรดเฉลี่ยสะสม</label>
+                            <input type="number" id="gpa" name="gpa" step="0.01" min="0" max="4" placeholder="เช่น 3.50" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="graduation_year">ปีที่จบการศึกษา</label>
+                            <input type="number" id="graduation_year" name="graduation_year" min="2000" max="2030" placeholder="เช่น 2024" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Faculty and Program Selection Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-university"></i> คณะและสาขาวิชาที่สนใจ</h2>
+                    
+                    <div class="form-group">
+                        <label for="faculty">คณะที่สนใจ</label>
+                        <select id="faculty" name="faculty" required>
+                            <option value="">เลือกคณะที่สนใจ</option>
+                            <option value="คณะวิทยาศาสตร์และเทคโนโลยี">คณะวิทยาศาสตร์และเทคโนโลยี</option>
+                            <option value="คณะมนุษยศาสตร์และสังคมศาสตร์">คณะมนุษยศาสตร์และสังคมศาสตร์</option>
+                            <option value="คณะครุศาสตร์">คณะครุศาสตร์</option>
+                            <option value="คณะวิทยาการจัดการ">คณะวิทยาการจัดการ</option>
+                            <option value="คณะศิลปกรรมศาสตร์">คณะศิลปกรรมศาสตร์</option>
+                            <option value="คณะพยาบาลศาสตร์">คณะพยาบาลศาสตร์</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="program">สาขาวิชาที่สนใจ</label>
+                        <select id="program" name="program" required>
+                            <option value="">เลือกคณะก่อนเพื่อดูสาขาวิชา</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> ส่งแบบฟอร์มสมัคร
+                </button>
+            </form>
+            
+            <div class="requirements">
+                <h2><i class="fas fa-list"></i> เอกสารที่ต้องใช้ในการสมัคร</h2>
+                <ul>
+                    <li>สำเนาบัตรประชาชน 1 ฉบับ</li>
+                    <li>สำเนาทะเบียนบ้าน 1 ฉบับ</li>
+                    <li>รูปถ่ายหน้าตรง ขนาด 1 นิ้ว 2 ใบ</li>
+                    <li>ใบรับรองผลการศึกษา (ปพ.1 หรือ ปพ.7)</li>
+                    <li>ใบแสดงผลการเรียน (ปพ.7)</li>
+                    <li>สำเนาเกียรติบัตร (ถ้ามี)</li>
+                </ul>
+            </div>
         </div>
     </div>
 

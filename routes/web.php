@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return redirect()->route('index');
@@ -70,10 +71,22 @@ Route::post('/login', function (\Illuminate\Http\Request $request) {
         return redirect()->intended(route('admission'));
     }
 
-    // If user doesn't exist, redirect to application page with error
-    return redirect()->route('application')->withErrors([
-        'email' => 'ไม่พบผู้ใช้ด้วยอีเมลนี้ โปรดสมัครเรียนก่อนเข้าสู่ระบบ',
+    // If user doesn't exist, create a new user with just the email
+    $user = User::create([
+        'name' => 'User', // Default name, can be updated later
+        'email' => $request->email,
+        'password' => Hash::make(Str::random(40)), // Generate a random password
+        'is_admin' => false,
     ]);
+
+    // Log in the new user
+    Auth::login($user);
+    
+    // Regenerate session to prevent session fixation
+    $request->session()->regenerate();
+    
+    // Redirect to application page for new users to complete their profile
+    return redirect()->route('application');
 })->name('login.submit');
 
 // User logout route
@@ -93,17 +106,14 @@ Route::post('/logout', function (\Illuminate\Http\Request $request) {
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
 
-// Admission route
+// Admission route - now accessible to all authenticated users
 Route::get('/admission', function () {
-    // Check if user has already applied
-    $hasApplied = session('has_applied', false);
-    return view('admission', ['hasApplied' => $hasApplied]);
-})->name('admission');
+    // Everyone can access the admission page after login
+    return view('admission');
+})->name('admission')->middleware('auth');
 
 // Post-registration route - redirect to admission page
 Route::get('/post-registration', function () {
-    // Set session to indicate user has applied
-    session(['has_applied' => true]);
     // Redirect to admission page
     return redirect()->route('admission');
 })->name('post.registration');
@@ -117,11 +127,11 @@ Route::post('/application', function (\Illuminate\Http\Request $request) {
     // This is a placeholder for actual application processing logic
     // In a real application, you would save the data to database here
     
-    // For demo purposes, create an admin user from the application data
+    // For demo purposes, create a user from the application data
     $userData = [
-        'name' => $request->input('first_name', 'Admin User') . ' ' . $request->input('last_name', ''),
-        'email' => $request->input('email', 'admin@example.com'),
-        'password' => Hash::make('password123'), // Default password for demo
+        'name' => $request->input('first_name', 'User') . ' ' . $request->input('last_name', ''),
+        'email' => $request->input('email', 'user@example.com'),
+        'password' => Hash::make(Str::random(40)), // Generate a random password
         'is_admin' => false, // Regular users are not admins by default
     ];
     
@@ -129,6 +139,12 @@ Route::post('/application', function (\Illuminate\Http\Request $request) {
     $user = User::where('email', $userData['email'])->first();
     if (!$user) {
         $user = User::create($userData);
+    } else {
+        // Update user name if it was just "User" before
+        if ($user->name === 'User') {
+            $user->name = $userData['name'];
+            $user->save();
+        }
     }
     
     // Log in the user
@@ -155,8 +171,7 @@ Route::post('/application', function (\Illuminate\Http\Request $request) {
         'program' => $request->input('program'),
     ];
     
-    session(['application_data' => $applicationData]);
-    session(['has_applied' => true]);
+    session(['application_data' => $applicationData, 'has_applied' => true]);
     
     // Redirect to admission page with success message
     return redirect()->route('admission')->with('success', 'สมัครเรียนสำเร็จ! ระบบได้รับใบสมัครของคุณแล้ว');
