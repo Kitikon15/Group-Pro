@@ -553,10 +553,13 @@
         <div class="sidebar">
             <h2>เมนูหลัก</h2>
             <ul class="menu-list">
-                <li><a href="{{ route('admin.login') }}"><i class="fas fa-cog"></i> ระบบจัดการ</a></li>
                 <li><a href="{{ route('faculty.program.quotas') }}"><i class="fas fa-graduation-cap"></i> สาขาและจำนวนที่รับสมัคร</a></li>
                 <li><a href="#"><i class="fas fa-question-circle"></i> ตอบคำถาม</a></li>
                 <li><a href="{{ route('application.process') }}"><i class="fas fa-list-ol"></i> ขั้นตอนการสมัคร</a></li>
+                @if(session('has_applied'))
+                <li><a href="{{ route('application.status', ['id' => session('application_id')]) }}"><i class="fas fa-search"></i> ตรวจสอบสถานะใบสมัคร</a></li>
+                @endif
+                <li><a href="{{ route('admin.login') }}"><i class="fas fa-cog"></i> ระบบจัดการ</a></li>
             </ul>
 
             <div class="menu-header">

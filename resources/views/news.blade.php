@@ -42,7 +42,7 @@
                         <h3>{{ $item->title }}</h3>
                         <p>{{ Str::limit(strip_tags($item->content), 200) }}</p>
                         <div class="news-actions">
-                            <a href="{{ route('news.show', $item->id) }}" class="btn btn-primary">
+                            <a href="{{ route('news.show', $item) }}" class="btn btn-primary">
                                 <i class="fas fa-eye"></i> อ่านเพิ่มเติม
                             </a>
                         </div>

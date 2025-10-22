@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="course-actions">
-                            <a href="{{ route('courses.show', $course->id) }}" class="btn btn-primary">
+                            <a href="{{ route('courses.show', $course) }}" class="btn btn-primary">
                                 <i class="fas fa-info-circle"></i> ดูรายละเอียด
                             </a>
                         </div>

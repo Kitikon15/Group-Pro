@@ -137,6 +137,7 @@ class LoginController extends Controller
         // Regenerate CSRF token
         $request->session()->regenerateToken();
         
-        return redirect()->route('admin.login');
+        // Redirect to index page after admin logout
+        return redirect()->route('index');
     }
 }

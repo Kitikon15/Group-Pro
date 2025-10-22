@@ -260,11 +260,12 @@
             
             <p>
                 ขอบคุณที่สนใจเข้าศึกษาในมหาวิทยาลัยราชภัฏนครปฐม<br>
+                ใบสมัครของคุณอยู่ในสถานะ <strong style="color: #FF4500;">รอการอนุมัติจากแอดมิน</strong>
             </p>
             
             <div class="info-box">
                 <h3><i class="fas fa-info-circle"></i> ข้อมูลสำคัญ</h3>
-                <p>ระบบได้รับใบสมัครของคุณเรียบร้อยแล้ว ทางมหาวิทยาลัยจะดำเนินการตรวจสอบข้อมูลและติดต่อกลับภายใน 3-5 วันทำการ</p>
+                <p>ระบบได้รับใบสมัครของคุณเรียบร้อยแล้ว ขณะนี้ใบสมัครของคุณอยู่ในสถานะ "รอการอนุมัติ" เจ้าหน้าที่จะดำเนินการตรวจสอบข้อมูลและติดต่อกลับภายใน 3-5 วันทำการ</p>
             </div>
             
             <div class="steps">
@@ -273,7 +274,7 @@
                     <div class="step-number">1</div>
                     <div>
                         <strong>ตรวจสอบข้อมูล</strong>
-                        <p>เจ้าหน้าที่จะตรวจสอบข้อมูลที่คุณส่งมา</p>
+                        <p>เจ้าหน้าที่จะตรวจสอบข้อมูลที่คุณส่งมา (สถานะปัจจุบัน: รอการอนุมัติ)</p>
                     </div>
                 </div>
                 <div class="step">
@@ -303,8 +304,8 @@
                 คุณจะถูกนำไปหน้าสมัครเรียนโดยอัตโนมัติภายใน <span id="countdown">5</span> วินาที
             </div>
             
-            <a href="{{ route('home') }}" class="logout-btn">
-                <i class="fas fa-arrow-left"></i> กลับไปหน้าหลัก
+            <a href="{{ route('admission') }}" class="btn-home">
+                <i class="fas fa-user-check"></i> ตรวจสอบสถานะใบสมัคร
             </a>
         </div>
     </div>
@@ -325,7 +326,7 @@
             
             if (countdown <= 0) {
                 clearInterval(redirectTimer);
-                window.location.href = "{{ url('/admission') }}";
+                window.location.href = "{{ route('admission') }}";
             }
         }, 1000);
     </script>

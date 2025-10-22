@@ -66,7 +66,7 @@
                             <p class="contact"><i class="fas fa-phone"></i> {{ $personnel->phone }}</p>
                         @endif
                         <div class="personnel-actions">
-                            <a href="{{ route('personnels.show', $personnel->id) }}" class="btn btn-primary">
+                            <a href="{{ route('personnels.show', $personnel) }}" class="btn btn-primary">
                                 <i class="fas fa-info-circle"></i> ดูรายละเอียด
                             </a>
                         </div>

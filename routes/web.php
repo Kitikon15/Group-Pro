@@ -108,6 +108,15 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 // Admission route - now accessible to all authenticated users
 Route::get('/admission', function () {
+    // Check if user has already applied
+    if (session('has_applied') && session('application_id')) {
+        // Get the application status
+        $application = \App\Models\Application::find(session('application_id'));
+        if ($application) {
+            return view('admission-pending', compact('application'));
+        }
+    }
+    
     // Everyone can access the admission page after login
     return view('admission');
 })->name('admission')->middleware('auth');
@@ -124,8 +133,32 @@ Route::get('/application', function () {
 })->name('application');
 
 Route::post('/application', function (\Illuminate\Http\Request $request) {
-    // This is a placeholder for actual application processing logic
-    // In a real application, you would save the data to database here
+    // Validate the input
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'gender' => 'required|string|max:255',
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'id_card' => 'required|string|max:13',
+        'birth_date' => 'required|date',
+        'address' => 'required|string',
+        'province' => 'required|string|max:255',
+        'postal_code' => 'required|string|max:10',
+        'phone' => 'required|string|max:20',
+        'email' => 'required|email|max:255',
+        'education_level' => 'required|string|max:255',
+        'school_name' => 'required|string|max:255',
+        'gpa' => 'required|numeric|min:0|max:4',
+        'graduation_year' => 'required|integer',
+        'faculty' => 'required|string|max:255',
+        'program' => 'required|string|max:255',
+    ]);
+    
+    // Save application to database with pending status by default
+    $application = \App\Models\Application::create(array_merge($validatedData, [
+        'status' => 'pending',
+        'admin_notes' => null
+    ]));
     
     // For demo purposes, create a user from the application data
     $userData = [
@@ -150,31 +183,15 @@ Route::post('/application', function (\Illuminate\Http\Request $request) {
     // Log in the user
     Auth::login($user);
     
-    // Store application data in session for demo purposes
-    $applicationData = [
-        'title' => $request->input('title'),
-        'gender' => $request->input('gender'),
-        'first_name' => $request->input('first_name'),
-        'last_name' => $request->input('last_name'),
-        'id_card' => $request->input('id_card'),
-        'birth_date' => $request->input('birth_date'),
-        'address' => $request->input('address'),
-        'province' => $request->input('province'),
-        'postal_code' => $request->input('postal_code'),
-        'phone' => $request->input('phone'),
-        'email' => $request->input('email'),
-        'education_level' => $request->input('education_level'),
-        'school_name' => $request->input('school_name'),
-        'gpa' => $request->input('gpa'),
-        'graduation_year' => $request->input('graduation_year'),
-        'faculty' => $request->input('faculty'),
-        'program' => $request->input('program'),
-    ];
+    // Store application data and ID in session
+    session([
+        'application_data' => $validatedData, 
+        'has_applied' => true,
+        'application_id' => $application->id
+    ]);
     
-    session(['application_data' => $applicationData, 'has_applied' => true]);
-    
-    // Redirect to admission page with success message
-    return redirect()->route('admission')->with('success', 'สมัครเรียนสำเร็จ! ระบบได้รับใบสมัครของคุณแล้ว');
+    // Redirect to application status page
+    return redirect()->route('application.status', ['id' => $application->id])->with('success', 'สมัครเรียนสำเร็จ! ระบบได้รับใบสมัครของคุณแล้ว');
 })->name('application.submit');
 
 // Application edit routes
@@ -218,6 +235,12 @@ Route::get('/application/success', function () {
 Route::get('/application/success/simple', function () {
     return view('application-success-simple');
 })->name('application.success.simple');
+
+// Application status route for applicants to check their application status
+Route::get('/application/status/{id}', function ($id) {
+    $application = \App\Models\Application::findOrFail($id);
+    return view('application-status', compact('application'));
+})->name('application.status');
 
 // Admin authentication routes
 Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
@@ -437,6 +460,31 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/custom/list', function () {
         return view('admin.custom.list-data');
     })->name('admin.custom.list');
+    
+    // Generic data management routes
+    Route::get('/admin/data', [App\Http\Controllers\Admin\GenericDataController::class, 'index'])->name('admin.generic.data.index');
+    Route::get('/admin/data/create', [App\Http\Controllers\Admin\GenericDataController::class, 'create'])->name('admin.generic.data.create');
+    Route::post('/admin/data', [App\Http\Controllers\Admin\GenericDataController::class, 'store'])->name('admin.generic.data.store');
+    Route::get('/admin/data/{id}/edit', [App\Http\Controllers\Admin\GenericDataController::class, 'edit'])->name('admin.generic.data.edit');
+    Route::put('/admin/data/{id}', [App\Http\Controllers\Admin\GenericDataController::class, 'update'])->name('admin.generic.data.update');
+    Route::delete('/admin/data/{id}', [App\Http\Controllers\Admin\GenericDataController::class, 'destroy'])->name('admin.generic.data.destroy');
+    
+    // Applications management routes
+    Route::resource('admin/applications', App\Http\Controllers\Admin\ApplicationController::class)->names([
+        'index' => 'admin.applications.index',
+        'create' => 'admin.applications.create',
+        'store' => 'admin.applications.store',
+        'show' => 'admin.applications.show',
+        'edit' => 'admin.applications.edit',
+        'update' => 'admin.applications.update',
+        'destroy' => 'admin.applications.destroy',
+    ]);
+    
+    // Application status update route
+    Route::put('/admin/applications/{application}/status', [App\Http\Controllers\Admin\ApplicationController::class, 'updateStatus'])->name('admin.applications.updateStatus');
+    
+    // Frontend content update route
+    Route::post('/admin/frontend-content', [App\Http\Controllers\Admin\FrontendContentController::class, 'updateContent'])->name('admin.frontend.content.update');
 });
 
 // Clear application status (for testing)
@@ -941,12 +989,32 @@ Route::put('/admin/application-process', function (\Illuminate\Http\Request $req
     return redirect()->route('admin.application.process')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว!');
 })->name('admin.application.process.update')->middleware('admin');
 
-// Generic data management routes
-Route::middleware(['admin'])->group(function () {
-    Route::get('/admin/data', [App\Http\Controllers\Admin\GenericDataController::class, 'index'])->name('admin.generic.data.index');
-    Route::get('/admin/data/create', [App\Http\Controllers\Admin\GenericDataController::class, 'create'])->name('admin.generic.data.create');
-    Route::post('/admin/data', [App\Http\Controllers\Admin\GenericDataController::class, 'store'])->name('admin.generic.data.store');
-    Route::get('/admin/data/{id}/edit', [App\Http\Controllers\Admin\GenericDataController::class, 'edit'])->name('admin.generic.data.edit');
-    Route::put('/admin/data/{id}', [App\Http\Controllers\Admin\GenericDataController::class, 'update'])->name('admin.generic.data.update');
-    Route::delete('/admin/data/{id}', [App\Http\Controllers\Admin\GenericDataController::class, 'destroy'])->name('admin.generic.data.destroy');
-});
+// Public routes for courses, personnels, and news
+Route::get('/courses', function () {
+    $courses = \App\Models\Course::where('status', 'เปิดรับ')->get();
+    return view('courses', compact('courses'));
+})->name('courses');
+
+Route::get('/courses/{course}', function (\App\Models\Course $course) {
+    return view('courses.show', compact('course'));
+})->name('courses.show');
+
+Route::get('/personnels', function () {
+    $personnels = \App\Models\Personnel::where('status', 'ทำงาน')->get();
+    return view('personnels', compact('personnels'));
+})->name('personnels');
+
+Route::get('/personnels/{personnel}', function (\App\Models\Personnel $personnel) {
+    return view('personnels.show', compact('personnel'));
+})->name('personnels.show');
+
+Route::get('/news', function () {
+    $news = \App\Models\News::where('status', 'เผยแพร่')
+        ->orderBy('publish_date', 'desc')
+        ->paginate(10);
+    return view('news', compact('news'));
+})->name('news');
+
+Route::get('/news/{news}', function (\App\Models\News $news) {
+    return view('news.show', compact('news'));
+})->name('news.show');

@@ -343,6 +343,11 @@
             color: #f57f17;
         }
 
+        .status-danger {
+            background: #ffebee;
+            color: #c62828;
+        }
+
         .welcome-banner {
             background: linear-gradient(135deg, #f0e0e0, #e0d0d0);
             color: #8B0000;
@@ -477,6 +482,10 @@
                     <i class="fas fa-users"></i>
                     <span>บุคลากร</span>
                 </a></li>
+                <li><a href="{{ route('admin.applications.index') }}">
+                    <i class="fas fa-file-alt"></i>
+                    <span>ใบสมัคร</span>
+                </a></li>
                 <li><a href="{{ route('admin.admission.report') }}">
                     <i class="fas fa-chart-bar"></i>
                     <span>รายงานการรับสมัคร</span>
@@ -494,7 +503,7 @@
             <div class="page-title">
                 <span>แผงควบคุมระบบ</span>
                 <div>
-                    <button class="btn btn-secondary btn-sm">
+                    <button class="btn btn-secondary btn-sm" onclick="location.reload()">
                         <i class="fas fa-sync-alt"></i> รีเฟรช
                     </button>
                 </div>
@@ -509,29 +518,60 @@
                 <div class="stat-card">
                     <div class="stat-icon">👥</div>
                     <div class="stat-info">
-                        <h3>1,248</h3>
+                        <h3>{{ \App\Models\User::count() }}</h3>
                         <p>จำนวนนักศึกษา</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">👨‍🏫</div>
                     <div class="stat-info">
-                        <h3>42</h3>
+                        <h3>{{ \App\Models\Personnel::count() }}</h3>
                         <p>จำนวนบุคลากร</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">📰</div>
                     <div class="stat-info">
-                        <h3>126</h3>
+                        <h3>{{ \App\Models\News::count() }}</h3>
                         <p>ข่าวสารและกิจกรรม</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">📋</div>
                     <div class="stat-info">
-                        <h3>8</h3>
+                        <h3>{{ \App\Models\Course::count() }}</h3>
                         <p>หลักสูตรทั้งหมด</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-info">
+                        <h3>{{ \App\Models\Application::count() }}</h3>
+                        <p>ใบสมัครทั้งหมด</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-info">
+                        <h3>{{ \App\Models\Application::where('status', 'pending')->count() }}</h3>
+                        <p>รอการตรวจสอบ</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <h3>{{ \App\Models\Application::where('status', 'approved')->count() }}</h3>
+                        <p>อนุมัติ</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">❌</div>
+                    <div class="stat-info">
+                        <h3>{{ \App\Models\Application::where('status', 'rejected')->count() }}</h3>
+                        <p>ไม่อนุมัติ</p>
                     </div>
                 </div>
             </div>
@@ -551,30 +591,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach(\App\Models\News::latest()->limit(4)->get() as $item)
                         <tr>
-                            <td>โครงการอบรมเชิงปฏิบัติการด้านการเขียนโปรแกรม</td>
-                            <td>กิจกรรมนักศึกษา</td>
-                            <td>15 ก.ย. 2568</td>
-                            <td><span class="status status-active">เผยแพร่</span></td>
+                            <td>{{ $item->title }}</td>
+                            <td>{{ $item->type }}</td>
+                            <td>{{ $item->publish_date->format('d/m/Y') }}</td>
+                            <td>
+                                @if($item->status == 'เผยแพร่')
+                                    <span class="status status-active">เผยแพร่</span>
+                                @else
+                                    <span class="status status-pending">ร่าง</span>
+                                @endif
+                            </td>
                         </tr>
-                        <tr>
-                            <td>ประกาศรับสมัครนักศึกษาปริญญาตรี ปีการศึกษา 2569</td>
-                            <td>ประกาศ</td>
-                            <td>10 ก.ย. 2568</td>
-                            <td><span class="status status-active">เผยแพร่</span></td>
-                        </tr>
-                        <tr>
-                            <td>สัมมนาหัวข้อ "เทคโนโลยีในศตวรรษที่ 21"</td>
-                            <td>กิจกรรม</td>
-                            <td>5 ก.ย. 2568</td>
-                            <td><span class="status status-pending">ร่าง</span></td>
-                        </tr>
-                        <tr>
-                            <td>ตารางสอบกลางภาคเรียนที่ 1/2568</td>
-                            <td>ประกาศ</td>
-                            <td>1 ก.ย. 2568</td>
-                            <td><span class="status status-active">เผยแพร่</span></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

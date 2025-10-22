@@ -1,519 +1,423 @@
-<!DOCTYPE html>
-<html lang="th">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>ข่าวประชาสัมพันธ์ - มหาวิทยาลัยราชภัฏนครปฐม</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Sarabun', sans-serif;
-        }
+@section('title', 'หน้าแรก - มหาวิทยาลัยราชภัฏนครปฐม')
 
-        body {
-            background: linear-gradient(135deg, #fff9e6 0%, #fff0cc 100%);
-            color: #333;
-            line-height: 1.6;
-        }
+@section('content')
+<div class="hero">
+    <h1>{{ editable_content('homepage_hero_title', 'ยินดีต้อนรับสู่มหาวิทยาลัยราชภัฏนครปฐม') }}</h1>
+    <p>{{ editable_content('homepage_hero_subtitle', 'สถาบันอุดมศึกษาที่มีคุณภาพและสร้างสรรค์นวัตกรรมเพื่ออนาคต') }}</p>
+    <a href="{{ route('application') }}" class="btn-primary">
+        <i class="fas fa-user-plus"></i> สมัครเรียนเลย
+    </a>
+</div>
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #FFD700, #FF4500);
-            color: #000;
-            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-radius: 0 0 10px 10px;
-        }
-
-        .logo-title {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo img {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #fff;
-            padding: 2px;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .title {
-            font-size: 1.3em;
-            font-weight: 700;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            color: #000;
-        }
-
-        .right-section {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .font-size-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9em;
-        }
-
-        .font-size-controls span {
-            font-size: 1.2em;
-            cursor: pointer;
-            padding: 5px 8px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            color: #000;
-            background: rgba(255, 255, 255, 0.5);
-            font-weight: 700;
-        }
-
-        .font-size-controls span:hover {
-            background: rgba(255, 255, 255, 0.7);
-            transform: scale(1.1);
-        }
-
-        .lang-flag {
-            font-size: 1.2em;
-            padding: 8px 12px;
-            background: linear-gradient(135deg, #FFD700, #FF4500);
-            color: #000;
-            border-radius: 6px;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(255, 69, 0, 0.3);
-        }
-
-        .apply-btn {
-            background: linear-gradient(135deg, #FFD700, #FF4500);
-            color: #000;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 25px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(255, 69, 0, 0.3);
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .apply-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 69, 0, 0.4);
-        }
-
-        .content-wrapper {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section {
-            max-width: 1400px;
-            margin: 60px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .section h2 {
-            font-size: 2.5em;
-            margin-bottom: 40px;
-            color: #000;
-            position: relative;
-            display: inline-block;
-            font-weight: 700;
-        }
-
-        .section h2:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 5px;
-            background: linear-gradient(135deg, #FFD700, #FF4500);
-            border-radius: 2px;
-        }
-
-        .news-section {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(255, 69, 0, 0.15);
-            padding: 30px;
-            transition: all 0.3s ease;
-            border: 1px solid #ffd7a0;
-            margin-bottom: 40px;
-        }
-
-        .news-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 69, 0, 0.25);
-        }
-
-        .news-item {
-            margin-bottom: 30px;
-            padding: 25px;
-            border-radius: 15px;
-            background: #fff9e6;
-            transition: all 0.3s ease;
-            border-left: 5px solid #FF4500;
-            border: 1px solid #ffd7a0;
-        }
-
-        .news-item:hover {
-            background: #fff0cc;
-            transform: translateX(10px);
-            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.2);
-        }
-
-        .news-item h3 {
-            color: #000;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-        }
-
-        .news-item h3 i {
-            color: #FF4500;
-        }
-
-        .news-banner-placeholder {
-            width: 100%;
-            height: 250px;
-            border-radius: 10px;
-            margin: 15px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.1);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #000;
-            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
-            border: 3px solid #ffd7a0;
-        }
-
-        .news-banner-1 {
-            background-image: url('https://news.npru.ac.th/userfiles/ACADEMIC/%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%2069/ban%2069%20%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%201.png');
-        }
-
-        .news-banner-2 {
-            background-image: url('https://news.npru.ac.th/userfiles/ACADEMIC/%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%2069/ban%2069%20%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%20%282%29.png');
-        }
-
-        .news-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #ffd7a0;
-        }
-
-        .news-author {
-            font-size: 1em;
-            color: #555;
-            font-weight: 600;
-        }
-
-        .news-date {
-            font-size: 1em;
-            color: #FF4500;
-            font-weight: 700;
-        }
-
-        .read-more {
-            background: linear-gradient(135deg, #FFD700, #FF4500);
-            color: #000;
-            padding: 10px 25px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(255, 69, 0, 0.3);
-            display: inline-block;
-        }
-
-        .read-more:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(255, 69, 0, 0.4);
-        }
-
-        footer {
-            background: linear-gradient(135deg, #FFD700, #FF4500);
-            color: #000;
-            padding: 30px;
-            margin-top: 60px;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        footer a {
-            color: #000;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px;
-            }
-
-            .right-section {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .section h2 {
-                font-size: 2em;
-            }
-        }
-
-        .university-logo {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 25px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-            padding: 5px;
-            background: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-    </style>
-</head>
-
-<body>
-    <div class="header">
-        <div class="logo-title">
-            <div class="logo">
-                <img src="https://sc.npru.ac.th/sc_major/assets/images/app/logo.jpg" alt="SCI NPRU">
+<div class="container">
+    <h2 class="section-title">ข่าวสารและกิจกรรม</h2>
+    <div class="news-grid">
+        @foreach($news as $item)
+        <div class="news-card">
+            @if($item->image)
+                <img src="{{ $item->image }}" alt="{{ $item->title }}" class="news-img">
+            @else
+                <img src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="{{ $item->title }}" class="news-img">
+            @endif
+            <div class="news-content">
+                <div class="news-date">
+                    <i class="far fa-calendar"></i> {{ $item->publish_date->format('d M Y') }}
+                </div>
+                <h3 class="news-title">{{ $item->title }}</h3>
+                <p class="news-excerpt">{{ \Illuminate\Support\Str::limit(strip_tags($item->content), 100) }}</p>
+                <a href="{{ route('news.show', $item) }}" class="read-more">
+                    อ่านเพิ่มเติม <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-            <div class="title">มหาวิทยาลัยราชภัฏนครปฐม</div>
         </div>
-        <div class="right-section">
-            <div class="font-size-controls">
-                ขนาดอักษร: <span onclick="adjustFontSize('small')">ก</span>
-                <span onclick="adjustFontSize('medium')">ก</span>
-                <span onclick="adjustFontSize('large')">ก</span>
+        @endforeach
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title">ทำไมต้องเลือกเรา?</h2>
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-graduation-cap"></i>
             </div>
-            <div class="lang-flag">
-                <img src="https://sc.npru.ac.th/sc_major/assets/images/langs/tha.png" alt="Thai Flag" style="height: 18px;">
+            <h3 class="feature-title">{{ editable_content('feature_1_title', 'หลักสูตรที่ทันสมัย') }}</h3>
+            <p class="feature-desc">{{ editable_content('feature_1_description', 'หลักสูตรที่ออกแบบโดยผู้เชี่ยวชาญและปรับปรุงให้สอดคล้องกับความต้องการของตลาดแรงงาน') }}</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-chalkboard-teacher"></i>
             </div>
-            <a href="{{ route('login') }}" class="apply-btn" style="background: linear-gradient(135deg, #4e54c8, #8f94fb); margin-right: 10px;">
-                <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
-            </a>
-            <a href="{{ route('application') }}" class="apply-btn">
-                <i class="fas fa-user-plus"></i> สมัครเรียน
-            </a>
+            <h3 class="feature-title">{{ editable_content('feature_2_title', 'คณาจารย์ที่มีคุณภาพ') }}</h3>
+            <p class="feature-desc">{{ editable_content('feature_2_description', 'ทีมงานคณาจารย์ที่มีความเชี่ยวชาญในสาขาและมีประสบการณ์ในการสอน') }}</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-flask"></i>
+            </div>
+            <h3 class="feature-title">{{ editable_content('feature_3_title', 'สิ่งอำนวยความสะดวกครบครัน') }}</h3>
+            <p class="feature-desc">{{ editable_content('feature_3_description', 'ห้องปฏิบัติการ ห้องสมุด และสิ่งอำนวยความสะดวกอื่นๆ ที่ทันสมัยสำหรับการเรียนรู้') }}</p>
         </div>
     </div>
+</div>
 
-    <div class="content-wrapper">
-        <!-- Show success message if exists -->
-        @if(session('success'))
-            <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
-                <div style="background: linear-gradient(135deg, #d4edda, #c3e6cb); border-left: 4px solid #28a745; padding: 20px; border-radius: 0 8px 8px 0; box-shadow: 0 4px 10px rgba(40, 167, 69, 0.15); color: #155724; font-weight: 600;">
-                    <h3 style="margin: 0 0 10px 0; display: flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-check-circle"></i> สมัครเรียนสำเร็จ!
-                    </h3>
-                    <p style="margin: 0;">{{ session('success') }}</p>
-                </div>
-            </div>
-        @endif
+<div class="cta-section">
+    <h2>{{ editable_content('cta_title', 'พร้อมแล้วหรือยังที่จะเป็นส่วนหนึ่งของพวกเรา?') }}</h2>
+    <p>{{ editable_content('cta_subtitle', 'เข้าร่วมกับเราและเปิดโอกาสให้อนาคตของคุณเปลี่ยนแปลงไป') }}</p>
+    <a href="{{ route('application') }}" class="btn-primary">
+        <i class="fas fa-rocket"></i> เริ่มต้นการสมัครเลย
+    </a>
+</div>
+
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>ติดต่อเรา</h3>
+            <p><i class="fas fa-map-marker-alt"></i> {{ editable_content('contact_address', 'มหาวิทยาลัยราชภัฏนครปฐม ตำบลพระปฐมเจดีย์ อำเภอเมือง จังหวัดนครปฐม 73000') }}</p>
+            <p><i class="fas fa-phone"></i> {{ editable_content('contact_phone', 'โทรศัพท์: 0-3423-3274 ต่อ 2111') }}</p>
+            <p><i class="fas fa-envelope"></i> {{ editable_content('contact_email', 'อีเมล: sci.npru@gmail.com') }}</p>
+        </div>
+        <div class="footer-section">
+            <h3>ลิงก์ด่วน</h3>
+            <a href="{{ route('index') }}">หน้าแรก</a>
+            <a href="{{ route('courses') }}">หลักสูตร</a>
+            <a href="{{ route('personnels') }}">บุคลากร</a>
+            <a href="{{ route('news') }}">ข่าวสาร</a>
+            <a href="{{ route('application.process') }}">กระบวนการสมัคร</a>
+        </div>
+        <div class="footer-section">
+            <h3>โซเชียลมีเดีย</h3>
+            <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; {{ date('Y') }} {{ editable_content('copyright_text', 'มหาวิทยาลัยราชภัฏนครปฐม คณะวิทยาศาสตร์และเทคโนโลยี') }}. สงวนลิขสิทธิ์.</p>
+    </div>
+</div>
+
+@if(isset($editMode) && $editMode)
+<script>
+    // Add JavaScript for frontend editing
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add click handlers for editable content
+        const editableElements = document.querySelectorAll('.editable-content');
         
-        <div class="section">
-            <h2><i class="fas fa-newspaper"></i> ข่าวประชาสัมพันธ์</h2>
-            
-            <div class="news-section">
-                @forelse($news as $item)
-                <div class="news-item">
-                    <h3><i class="fas fa-bullhorn"></i> {{ $item->title }}</h3>
-                    @if($item->image)
-                        <div class="news-banner-placeholder" style="background-image: url('{{ asset($item->image) }}');">
-                        </div>
-                    @else
-                        <div class="news-banner-placeholder" style="background-color: #ffd700; color: #000;">
-                            {{ Str::limit($item->title, 50) }}
-                        </div>
-                    @endif
-                    <div class="news-details">
-                        <div class="news-author">ประกาศโดย: {{ $item->author ?? 'admin' }}</div>
-                        <div class="news-date">วันที่ประกาศ: {{ \Carbon\Carbon::parse($item->publish_date)->format('j F Y') }}</div>
-                        <a href="#" class="read-more">อ่านเพิ่มเติม</a>
-                    </div>
-                </div>
-                @empty
-                <div class="news-item">
-                    <h3><i class="fas fa-bullhorn"></i> ยังไม่มีข่าวประชาสัมพันธ์</h3>
-                    <div class="news-banner-placeholder" style="background-color: #f0f0f0; color: #666;">
-                        ไม่มีข่าวประชาสัมพันธ์ในขณะนี้
-                    </div>
-                    <div class="news-details">
-                        <div class="news-author">ประกาศโดย: ระบบ</div>
-                        <div class="news-date">วันที่ประกาศ: -</div>
-                        <a href="#" class="read-more" style="opacity: 0.5; pointer-events: none;">อ่านเพิ่มเติม</a>
-                    </div>
-                </div>
-                @endforelse
-            </div>
-            
-            <!-- Faculty and Program Information Section -->
-            <div class="news-section" style="margin-top: 30px;">
-                <h2><i class="fas fa-university"></i> คณะและสาขาวิชาที่เปิดรับสมัคร</h2>
-                <p>มหาวิทยาลัยราชภัฏนครปฐมมีหลายคณะและสาขาวิชาให้เลือกเรียน ดังนี้:</p>
+        editableElements.forEach(element => {
+            element.addEventListener('click', function() {
+                const key = this.dataset.key;
+                const currentValue = this.textContent.trim();
+                const type = this.dataset.type;
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
-                    <div class="news-item" style="margin-bottom: 0;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-graduation-cap"></i> คณะวิทยาศาสตร์และเทคโนโลยี
-                        </h3>
-                        <ul style="text-align: left; padding-left: 20px;">
-                            <li>สาขาวิชาวิศวกรรมซอฟต์แวร์</li>
-                            <li>สาขาวิชาวิทยาการคอมพิวเตอร์</li>
-                            <li>สาขาวิชาเทคโนโลยีสารสนเทศ</li>
-                            <li>สาขาวิชาวิทยาศาสตร์สิ่งแวดล้อม</li>
-                            <li>สาขาวิชาฟิสิกส์</li>
-                            <li>สาขาวิชาเคมี</li>
-                            <li>สาขาวิชาชีววิทยา</li>
-                            <li>สาขาวิชาคณิตศาสตร์</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="news-item" style="margin-bottom: 0;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-book"></i> คณะมนุษยศาสตร์และสังคมศาสตร์
-                        </h3>
-                        <ul style="text-align: left; padding-left: 20px;">
-                            <li>สาขาวิชาภาษาไทย</li>
-                            <li>สาขาวิชาภาษาอังกฤษ</li>
-                            <li>สาขาวิชาภาษาจีน</li>
-                            <li>สาขาวิชาประวัติศาสตร์</li>
-                            <li>สาขาวิชาภูมิศาสตร์</li>
-                            <li>สาขาวิชารัฐศาสตร์การปกครอง</li>
-                            <li>สาขาวิชาสังคมวิทยา</li>
-                            <li>สาขาวิชาจิตวิทยา</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="news-item" style="margin-bottom: 0;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-chalkboard-teacher"></i> คณะครุศาสตร์
-                        </h3>
-                        <ul style="text-align: left; padding-left: 20px;">
-                            <li>สาขาวิชาการสอนภาษาอังกฤษ</li>
-                            <li>สาขาวิชาการสอนคณิตศาสตร์</li>
-                            <li>สาขาวิชาการสอนวิทยาศาสตร์</li>
-                            <li>สาขาวิชาการสอนสังคมศึกษา</li>
-                            <li>สาขาวิชาการสอนภาษาไทย</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="news-item" style="margin-bottom: 0;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-business-time"></i> คณะวิทยาการจัดการ
-                        </h3>
-                        <ul style="text-align: left; padding-left: 20px;">
-                            <li>สาขาวิชาการจัดการ</li>
-                            <li>สาขาวิชาการตลาด</li>
-                            <li>สาขาวิชาบัญชี</li>
-                            <li>สาขาวิชาการเงิน</li>
-                            <li>สาขาวิชาคอมพิวเตอร์ธุรกิจ</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="news-item" style="margin-bottom: 0;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-palette"></i> คณะศิลปกรรมศาสตร์
-                        </h3>
-                        <ul style="text-align: left; padding-left: 20px;">
-                            <li>สาขาวิชาศิลปกรรม</li>
-                            <li>สาขาวิชาการออกแบบ</li>
-                            <li>สาขาวิชาดนตรี</li>
-                            <li>สาขาวิชาการแสดง</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="news-item" style="margin-bottom: 0;">
-                        <h3 style="color: #000; border-bottom: 1px solid #ffd7a0; padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-heartbeat"></i> คณะพยาบาลศาสตร์
-                        </h3>
-                        <ul style="text-align: left; padding-left: 20px;">
-                            <li>สาขาวิชาพยาบาลศาสตร์</li>
-                        </ul>
-                    </div>
-                </div>
+                // Create an input field for editing
+                const input = document.createElement('input');
+                input.type = type === 'textarea' ? 'textarea' : 'text';
+                input.value = currentValue;
+                input.style.width = '100%';
+                input.style.padding = '10px';
+                input.style.border = '2px solid #8B0000';
+                input.style.borderRadius = '5px';
+                input.style.fontSize = '16px';
                 
-                <div style="text-align: center; margin-top: 30px;">
-                    <a href="{{ route('application') }}" class="apply-btn" style="text-decoration: none; display: inline-block; padding: 15px 30px;">
-                        <i class="fas fa-user-plus"></i> สมัครเรียนทันที
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>© 2025 มหาวิทยาลัยราชภัฏนครปฐม คณะวิทยาศาสตร์และเทคโนโลยี</p>
-        <p>โทรศัพท์: 0-3423-3274 ต่อ 2111 | อีเมล: sci.npru@gmail.com</p>
-        <p><a href="{{ route('index') }}">หน้าหลัก</a> | <a href="{{ route('admin.login') }}">เข้าสู่ระบบ Admin</a> | <a href="{{ route('login') }}">เข้าสู่ระบบ</a> | <a href="{{ route('application') }}">สมัครเรียน</a></p>
-    </footer>
-
-    <script>
-        function adjustFontSize(size) {
-            const body = document.body;
-            
-            switch (size) {
-                case 'small':
-                    body.style.fontSize = '14px';
-                    break;
-                case 'medium':
-                    body.style.fontSize = '16px';
-                    break;
-                case 'large':
-                    body.style.fontSize = '18px';
-                    break;
-            }
-        }
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+                // Replace content with input
+                this.innerHTML = '';
+                this.appendChild(input);
+                input.focus();
+                
+                // Handle saving on blur or enter key
+                const saveContent = () => {
+                    const newValue = input.value;
+                    
+                    // Send update to server
+                    fetch('{{ route("admin.frontend.content.update") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            key: key,
+                            value: newValue
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Update the display
+                            this.innerHTML = newValue + '<div class="edit-overlay"><i class="fas fa-edit"></i></div>';
+                        } else {
+                            alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+                            this.innerHTML = currentValue + '<div class="edit-overlay"><i class="fas fa-edit"></i></div>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+                        this.innerHTML = currentValue + '<div class="edit-overlay"><i class="fas fa-edit"></i></div>';
+                    });
+                };
+                
+                input.addEventListener('blur', saveContent);
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        saveContent();
+                    }
                 });
             });
         });
-    </script>
-</body>
+    });
+</script>
+@endif
 
-</html>
+@endsection
+
+@section('styles')
+<style>
+    .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        text-align: center;
+        padding: 100px 20px;
+        margin-bottom: 40px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+        font-size: 24px;
+        max-width: 800px;
+        margin: 0 auto 30px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #FFD700, #FF4500);
+        color: #000;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 69, 0, 0.6);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 36px;
+        color: #000;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .section-title:after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(135deg, #FFD700, #FF4500);
+        margin: 10px auto;
+        border-radius: 2px;
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+
+    .news-card {
+        background: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(255, 69, 0, 0.15);
+        transition: all 0.3s ease;
+        border: 1px solid #ffd7a0;
+    }
+
+    .news-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(255, 69, 0, 0.25);
+    }
+
+    .news-img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .news-content {
+        padding: 25px;
+    }
+
+    .news-date {
+        color: #FF4500;
+        font-weight: 600;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .news-title {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #000;
+    }
+
+    .news-excerpt {
+        color: #5a5a5a;
+        margin-bottom: 20px;
+        line-height: 1.7;
+    }
+
+    .read-more {
+        color: #FF4500;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .read-more:hover {
+        gap: 10px;
+    }
+
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+
+    .feature-card {
+        background: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(255, 69, 0, 0.15);
+        transition: all 0.3s ease;
+        border: 1px solid #ffd7a0;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(255, 69, 0, 0.25);
+    }
+
+    .feature-icon {
+        font-size: 48px;
+        color: #FF4500;
+        margin-bottom: 20px;
+    }
+
+    .feature-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: #000;
+    }
+
+    .feature-desc {
+        color: #5a5a5a;
+        line-height: 1.7;
+    }
+
+    .cta-section {
+        background: linear-gradient(135deg, #FFD700, #FF4500);
+        color: #000;
+        text-align: center;
+        padding: 80px 20px;
+        border-radius: 15px;
+        margin-bottom: 60px;
+        box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
+    }
+
+    .cta-section h2 {
+        font-size: 42px;
+        margin-bottom: 20px;
+    }
+
+    .cta-section p {
+        font-size: 20px;
+        max-width: 800px;
+        margin: 0 auto 30px;
+    }
+
+    .footer {
+        background: #333;
+        color: #fff;
+        padding: 50px 20px 20px;
+        text-align: center;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto 40px;
+        text-align: left;
+    }
+
+    .footer-section h3 {
+        font-size: 22px;
+        margin-bottom: 20px;
+        color: #FFD700;
+    }
+
+    .footer-section p, .footer-section a {
+        color: #ccc;
+        line-height: 1.8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .footer-section a:hover {
+        color: #FFD700;
+    }
+
+    .copyright {
+        border-top: 1px solid #555;
+        padding-top: 20px;
+        color: #999;
+    }
+
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 36px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+        }
+    }
+</style>
+@endsection

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แผงควบคุม Admin - คณะวิทยาศาสตร์และเทคโนโลยี</title>
+    <title>@yield('title', 'Admin Panel') - คณะวิทยาศาสตร์และเทคโนโลยี</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -343,6 +343,11 @@
             color: #f57f17;
         }
 
+        .status-danger {
+            background: #ffebee;
+            color: #c62828;
+        }
+
         .welcome-banner {
             background: linear-gradient(135deg, #f0e0e0, #e0d0d0);
             color: #8B0000;
@@ -388,6 +393,31 @@
             box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
         }
 
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            font-size: 22px;
+            color: #000;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ffd7a0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
         .alert {
             padding: 15px;
             margin-bottom: 20px;
@@ -400,11 +430,27 @@
             border: 1px solid #c3e6cb;
         }
 
-        .form-text {
-            display: block;
-            margin-top: 5px;
-            color: #6c757d;
-            font-size: 14px;
+        .table-details {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-details th {
+            text-align: left;
+            padding: 8px 12px;
+            background: #f8f0f0;
+            font-weight: 600;
+            color: #8B0000;
+            width: 30%;
+        }
+
+        .table-details td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e0d0d0;
+        }
+
+        .text-center {
+            text-align: center;
         }
 
         @media (max-width: 768px) {
@@ -438,6 +484,11 @@
                 justify-content: flex-start;
                 padding: 15px 20px;
             }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
         }
     </style>
 </head>
@@ -448,17 +499,19 @@
             <div class="logo-text">คณะวิทยาศาสตร์และเทคโนโลยี</div>
         </div>
         <div class="user-info">
+            @auth
             <div class="user-avatar">
-                {{ substr(Auth::user()->name, 0, 1) }}
+                {{ substr(Auth::user()->name ?? 'A', 0, 1) }}
             </div>
             <div>
-                {{ Auth::user()->name }}<br>
+                {{ Auth::user()->name ?? 'Administrator' }}<br>
                 <small>ผู้ดูแลระบบ</small>
             </div>
             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-btn">ออกจากระบบ</a>
             <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
+            @endauth
         </div>
     </div>
 
@@ -484,30 +537,28 @@
                     <i class="fas fa-users"></i>
                     <span>บุคลากร</span>
                 </a></li>
-                <li><a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
-                    <i class="fas fa-cog"></i>
-                    <span>ตั้งค่าระบบ</span>
+                <li><a href="{{ route('admin.applications.index') }}" class="{{ request()->routeIs('admin.applications.*') ? 'active' : '' }}">
+                    <i class="fas fa-file-alt"></i>
+                    <span>ใบสมัคร</span>
                 </a></li>
                 <li><a href="{{ route('admin.admission.report') }}" class="{{ request()->routeIs('admin.admission.report') ? 'active' : '' }}">
                     <i class="fas fa-chart-bar"></i>
                     <span>รายงานการรับสมัคร</span>
                 </a></li>
-                <li><a href="{{ route('admin.faculty.program.quotas') }}" class="{{ request()->routeIs('admin.faculty.program.quotas') ? 'active' : '' }}">
-                    <i class="fas fa-university"></i>
-                    <span>สาขาและจำนวนที่รับสมัคร</span>
-                </a></li>
-                <li><a href="{{ route('admin.application.process') }}" class="{{ request()->routeIs('admin.application.process') ? 'active' : '' }}">
-                    <i class="fas fa-list-ol"></i>
-                    <span>ขั้นตอนการสมัคร</span>
-                </a></li>
-                <li><a href="{{ route('admin.generic.data.index', ['model' => 'News']) }}" class="{{ request()->routeIs('admin.generic.data.*') ? 'active' : '' }}">
-                    <i class="fas fa-database"></i>
-                    <span>จัดการข้อมูลทั่วไป</span>
+                <li><a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                    <i class="fas fa-cog"></i>
+                    <span>ตั้งค่าระบบ</span>
                 </a></li>
             </ul>
         </div>
 
         <div class="main-content">
+            <div class="breadcrumb">
+                <a href="{{ route('admin.dashboard') }}">หน้าหลัก</a>
+                <span class="separator">/</span>
+                <span>@yield('title', 'Admin Panel')</span>
+            </div>
+            
             @yield('content')
         </div>
     </div>

@@ -13,7 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminAuth::class,
+            'edit-mode' => \App\Http\Middleware\AdminEditMode::class,
         ]);
+        
+        // Register the edit mode middleware as global middleware
+        $middleware->append(\App\Http\Middleware\AdminEditMode::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
