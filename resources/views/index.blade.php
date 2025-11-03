@@ -197,7 +197,7 @@
         font-size: 24px;
         max-width: 800px;
         margin: 0 auto 30px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
     }
 
     .btn-primary {
